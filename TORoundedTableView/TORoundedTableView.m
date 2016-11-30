@@ -96,7 +96,7 @@
 {
     _regularWidthFraction = 0.8f;
     _compactPadding = 10.0f;
-    _cornerRadius = 5.0f;
+    _cornerRadius = 8.0f;
 }
 
 - (void)loadBackgroundImages
@@ -193,7 +193,7 @@
         if (frame.origin.x > FLT_EPSILON)                       { continue; } // Doesn't start at the very edge
         if (frame.size.height > hairLineHeight + FLT_EPSILON)   { continue; } // View is thicker than a hairline
         if (frame.size.width < totalWidth - FLT_EPSILON)        { continue; } // Doesn't span the entire length of cell
-        [view removeFromSuperview];
+        view.hidden = YES;
     }
 }
 
@@ -208,6 +208,7 @@
     cell.backgroundView = [[UIImageView alloc] initWithImage:self.backgroundImage];
     cell.backgroundView.layer.magnificationFilter = kCAFilterNearest;
     cell.backgroundView.tintColor = [UIColor whiteColor];
+    cell.backgroundView.hidden = YES;
     
     // Configure the 'tapped' background view
     cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:self.backgroundImage];
@@ -226,10 +227,21 @@
     }
     
     if (firstCellInSection) {
-        [(UIImageView *)cell.backgroundView setImage:lastCellInSection ? self.topAndBottomBackgroundImage : self.topBackgroundImage];
+        UIImage *image = lastCellInSection ? self.topAndBottomBackgroundImage : self.topBackgroundImage;
+        [(UIImageView *)cell.backgroundView setImage:image];
+        [(UIImageView *)cell.selectedBackgroundView setImage:image];
+        cell.backgroundColor = [UIColor clearColor];
+        cell.backgroundView.hidden = NO;
     }
     else if (lastCellInSection) {
         [(UIImageView *)cell.backgroundView setImage:self.bottomBackgroundImage];
+        [(UIImageView *)cell.selectedBackgroundView setImage:self.bottomBackgroundImage];
+        cell.backgroundColor = [UIColor clearColor];
+        cell.backgroundView.hidden = NO;
+    }
+    else {
+        cell.backgroundColor = [UIColor whiteColor];
+        cell.backgroundView.hidden = YES;
     }
 }
 
@@ -286,7 +298,7 @@
     
     // Work out the mask for which corners to be rounded
     NSUInteger cornerMask = bottom ? (UIRectCornerBottomLeft|UIRectCornerBottomRight) : 0;
-    cornerMask = top ? (UIRectCornerTopLeft|UIRectCornerTopRight) : 0;
+    cornerMask |= top ? (UIRectCornerTopLeft|UIRectCornerTopRight) : 0;
     
     // Generation the image
     UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0.0f);
@@ -309,7 +321,7 @@
     insets.bottom = bottom ? radius : 1.0f;
     
     // Make the image resizable
-    image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(bottom ? 1.0f : 20.0f, 20.0f, bottom ? 20.0f : 1.0f, 20.0f)];
+    image = [image resizableImageWithCapInsets:insets];
     
     // Make the image conform to the tint color
     return [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
@@ -319,7 +331,7 @@
 {
     UIImage *image = nil;
     CGRect rect = (CGRect){0, 0, 1.0f, 1.0f};
-    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0.0f);
+    UIGraphicsBeginImageContextWithOptions(rect.size, YES, 0.0f);
     {
         [[UIColor whiteColor] set];
         [[UIBezierPath bezierPathWithRect:rect] fill];
