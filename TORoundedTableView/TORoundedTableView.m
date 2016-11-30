@@ -36,7 +36,7 @@
 // Table cell configuration
 - (void)removeExteriorCellSeparatorViewsFromCell:(UITableViewCell *)cell;
 - (void)configureBackgroundViewsForCell:(UITableViewCell *)cell;
-- (void)configureVisibleTableViewCellsWithColumnWidth:(CGFloat)columnWidth;
+- (void)configureVisibleTableViewCellsInWrapperView:(UIView *)wrapperView withColumnWidth:(CGFloat)columnWidth;
 - (void)configureStyleForTableViewCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 
 // Image Generation
@@ -159,6 +159,7 @@
 - (void)resizeView:(UIView *)view forColumnWidth:(CGFloat)width
 {
     CGRect frame = view.frame;
+    if (frame.size.width < width + FLT_EPSILON) { return; }
     frame.size.width = width;
     view.frame = frame;
 }
@@ -166,6 +167,7 @@
 - (void)resizeWrapperView:(UIView *)wrapperView forColumnWidth:(CGFloat)columnWidth
 {
     CGRect frame = wrapperView.frame;
+    if (frame.size.width < columnWidth + FLT_EPSILON) { return; }
     frame.size.width = columnWidth;
     frame.origin.x = (self.frame.size.width - columnWidth) * 0.5f;
     wrapperView.frame = frame;
@@ -193,7 +195,7 @@
         if (frame.origin.x > FLT_EPSILON)                       { continue; } // Doesn't start at the very edge
         if (frame.size.height > hairLineHeight + FLT_EPSILON)   { continue; } // View is thicker than a hairline
         if (frame.size.width < totalWidth - FLT_EPSILON)        { continue; } // Doesn't span the entire length of cell
-        view.hidden = YES;
+        [view removeFromSuperview];
     }
 }
 
@@ -221,31 +223,32 @@
     BOOL firstCellInSection = indexPath.row == 0;
     BOOL lastCellInSection = indexPath.row == ([self numberOfRowsInSection:indexPath.section]-1);
     
-    // Remove the section border separator lines
-    if (firstCellInSection || lastCellInSection) {
-        [self removeExteriorCellSeparatorViewsFromCell:cell];
-    }
-    
-    if (firstCellInSection) {
-        UIImage *image = lastCellInSection ? self.topAndBottomBackgroundImage : self.topBackgroundImage;
-        [(UIImageView *)cell.backgroundView setImage:image];
-        [(UIImageView *)cell.selectedBackgroundView setImage:image];
-        cell.backgroundColor = [UIColor clearColor];
-        cell.backgroundView.hidden = NO;
-    }
-    else if (lastCellInSection) {
-        [(UIImageView *)cell.backgroundView setImage:self.bottomBackgroundImage];
-        [(UIImageView *)cell.selectedBackgroundView setImage:self.bottomBackgroundImage];
-        cell.backgroundColor = [UIColor clearColor];
-        cell.backgroundView.hidden = NO;
-    }
-    else {
+    if (!firstCellInSection && !lastCellInSection) {
         cell.backgroundColor = [UIColor whiteColor];
         cell.backgroundView.hidden = YES;
+        return;
     }
+    
+    // Remove the section border separator lines
+    [self removeExteriorCellSeparatorViewsFromCell:cell];
+    
+    UIImageView *backgroundView = (UIImageView *)cell.backgroundView;
+    UIImageView *selectedBackgroundView = (UIImageView *)cell.selectedBackgroundView;
+    
+    UIImage *image = firstCellInSection ? self.topBackgroundImage : self.bottomBackgroundImage;
+    if (firstCellInSection && lastCellInSection) {
+        image = self.topAndBottomBackgroundImage;
+    }
+    
+    if (!backgroundView.hidden && image == backgroundView.image) { return; }
+    
+    backgroundView.image = image;
+    selectedBackgroundView.image = image;
+    cell.backgroundColor = [UIColor clearColor];
+    cell.backgroundView.hidden = NO;
 }
 
-- (void)configureVisibleTableViewCellsWithColumnWidth:(CGFloat)columnWidth
+- (void)configureVisibleTableViewCellsInWrapperView:(UIView *)wrapperView withColumnWidth:(CGFloat)columnWidth
 {
     NSArray *indexPaths = [self indexPathsForVisibleRows];
     BOOL pendingChanges = ![self.previousVisibleCells isEqualToArray:indexPaths];
@@ -285,7 +288,7 @@
     [self resizeAuxiliaryViewsInWrapperView:wrapperView forColumnWidth:columnWidth];
 
     // Restyle and reconfigure each table view cell
-    [self configureVisibleTableViewCellsWithColumnWidth:columnWidth];
+    [self configureVisibleTableViewCellsInWrapperView:wrapperView withColumnWidth:columnWidth];
 }
 
 #pragma mark - Image Generation -
