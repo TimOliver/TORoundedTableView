@@ -12,25 +12,36 @@
 
 @property (nonatomic, strong) UIImage *topBackgroundImage;
 @property (nonatomic, strong) UIImage *bottomBackgroundImage;
+@property (nonatomic, strong) UIImage *topAndBottomBackgroundImage;
+
+@property (nonatomic, strong) UIImage *backgroundImage;
 
 @property (nonatomic, strong) NSArray *previousVisibleCells;
 
 // View Lifecyle
 - (void)setUp;
+- (void)loadBackgroundImages;
 
 // Table View Introspection
 - (UIView *)wrapperViewForTable;
 
-// Sizing relayout
+// Size Caluclations
 - (CGFloat)widthForCurrentSizeClass;
 
+// View resizing
 - (void)resizeWrapperView:(UIView *)wrapperView forColumnWidth:(CGFloat)columnWidth;
 - (void)resizeAuxiliaryViewsInWrapperView:(UIView *)wrapperView forColumnWidth:(CGFloat)width;
 - (void)resizeView:(UIView *)view forColumnWidth:(CGFloat)width;
 
+// Table cell configuration
 - (void)removeExteriorCellSeparatorViewsFromCell:(UITableViewCell *)cell;
+- (void)configureBackgroundViewsForCell:(UITableViewCell *)cell;
 - (void)configureVisibleTableViewCellsWithColumnWidth:(CGFloat)columnWidth;
 - (void)configureStyleForTableViewCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+
+// Image Generation
++ (UIImage *)resizabledRoundedImageWithRadius:(CGFloat)radius topRounded:(BOOL)top bottomRounded:(BOOL)bottom;
++ (UIImage *)singlePixelImage;
 
 @end
 
@@ -85,6 +96,39 @@
 {
     _regularWidthFraction = 0.8f;
     _compactPadding = 10.0f;
+    _cornerRadius = 5.0f;
+}
+
+- (void)loadBackgroundImages
+{
+    // Load the top image
+    if (!self.topBackgroundImage) {
+        self.topBackgroundImage = [[self class] resizabledRoundedImageWithRadius:self.cornerRadius topRounded:YES bottomRounded:NO];
+    }
+    
+    // Load the singular image
+    if (!self.topAndBottomBackgroundImage) {
+        self.topAndBottomBackgroundImage = [[self class] resizabledRoundedImageWithRadius:self.cornerRadius topRounded:YES bottomRounded:YES];
+    }
+    
+    // Load the bottom image
+    if (!self.bottomBackgroundImage) {
+        self.bottomBackgroundImage = [[self class] resizabledRoundedImageWithRadius:self.cornerRadius topRounded:NO bottomRounded:YES];
+    }
+    
+    // Load the solid image
+    if (!self.backgroundImage) {
+        self.backgroundImage = [[self class] singlePixelImage];
+    }
+}
+
+- (void)didMoveToSuperview
+{
+    if (self.superview == nil) {
+        return;
+    }
+    
+    [self loadBackgroundImages];
 }
 
 #pragma mark - Content Resizing / Layout -
@@ -146,11 +190,29 @@
     
     for (UIView *view in cell.subviews) {
         CGRect frame = view.frame;
-        if (frame.origin.x > FLT_EPSILON) { continue; } // Doesn't start at the edge
-        if (frame.size.height > hairLineHeight + FLT_EPSILON) { continue; } // View is thicker than a hairline
-        if (frame.size.width < totalWidth - FLT_EPSILON) { continue; } // Doesn't span the entire length of cell
+        if (frame.origin.x > FLT_EPSILON)                       { continue; } // Doesn't start at the very edge
+        if (frame.size.height > hairLineHeight + FLT_EPSILON)   { continue; } // View is thicker than a hairline
+        if (frame.size.width < totalWidth - FLT_EPSILON)        { continue; } // Doesn't span the entire length of cell
         [view removeFromSuperview];
     }
+}
+
+- (void)configureBackgroundViewsForCell:(UITableViewCell *)cell
+{
+    Class class = [UIImageView class];
+    if ([cell.backgroundView isKindOfClass:class] && [cell.selectedBackgroundView isKindOfClass:class]) {
+        return;
+    }
+    
+    // Configure the default background view
+    cell.backgroundView = [[UIImageView alloc] initWithImage:self.backgroundImage];
+    cell.backgroundView.layer.magnificationFilter = kCAFilterNearest;
+    cell.backgroundView.tintColor = [UIColor whiteColor];
+    
+    // Configure the 'tapped' background view
+    cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:self.backgroundImage];
+    cell.selectedBackgroundView.layer.magnificationFilter = kCAFilterNearest;
+    cell.selectedBackgroundView.tintColor = [UIColor colorWithWhite:0.9f alpha:1.0f];
 }
 
 - (void)configureStyleForTableViewCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
@@ -158,8 +220,16 @@
     BOOL firstCellInSection = indexPath.row == 0;
     BOOL lastCellInSection = indexPath.row == ([self numberOfRowsInSection:indexPath.section]-1);
     
+    // Remove the section border separator lines
     if (firstCellInSection || lastCellInSection) {
         [self removeExteriorCellSeparatorViewsFromCell:cell];
+    }
+    
+    if (firstCellInSection) {
+        [(UIImageView *)cell.backgroundView setImage:lastCellInSection ? self.topAndBottomBackgroundImage : self.topBackgroundImage];
+    }
+    else if (lastCellInSection) {
+        [(UIImageView *)cell.backgroundView setImage:self.bottomBackgroundImage];
     }
 }
 
@@ -177,6 +247,7 @@
         if (cell == nil) { continue; }
     
         [self resizeView:cell forColumnWidth:columnWidth];
+        [self configureBackgroundViewsForCell:cell];
         [self configureStyleForTableViewCell:cell atIndexPath:indexPath];
     }
     
@@ -203,6 +274,60 @@
 
     // Restyle and reconfigure each table view cell
     [self configureVisibleTableViewCellsWithColumnWidth:columnWidth];
+}
+
+#pragma mark - Image Generation -
++ (UIImage *)resizabledRoundedImageWithRadius:(CGFloat)radius topRounded:(BOOL)top bottomRounded:(BOOL)bottom
+{
+    UIImage *image = nil;
+    
+    // Rectangle if only one side is rounded, square otherwise
+    CGRect rect = CGRectMake(0, 0, (radius * 2) + 2, radius * (top && bottom ? 2 : 1) + 2);
+    
+    // Work out the mask for which corners to be rounded
+    NSUInteger cornerMask = bottom ? (UIRectCornerBottomLeft|UIRectCornerBottomRight) : 0;
+    cornerMask = top ? (UIRectCornerTopLeft|UIRectCornerTopRight) : 0;
+    
+    // Generation the image
+    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0.0f);
+    {
+        UIBezierPath *bezierPath = [UIBezierPath bezierPathWithRoundedRect:rect
+                                                         byRoundingCorners:cornerMask
+                                                               cornerRadii:CGSizeMake(radius, radius)];
+        
+        [[UIColor whiteColor] set];
+        [bezierPath fill];
+        image = UIGraphicsGetImageFromCurrentImageContext();
+    }
+    UIGraphicsEndImageContext();
+
+    // Work out the resiable insets
+    UIEdgeInsets insets = UIEdgeInsetsZero;
+    insets.top = top ? radius : 1.0f;
+    insets.left = radius;
+    insets.right = radius;
+    insets.bottom = bottom ? radius : 1.0f;
+    
+    // Make the image resizable
+    image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(bottom ? 1.0f : 20.0f, 20.0f, bottom ? 20.0f : 1.0f, 20.0f)];
+    
+    // Make the image conform to the tint color
+    return [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+}
+
++ (UIImage *)singlePixelImage
+{
+    UIImage *image = nil;
+    CGRect rect = (CGRect){0, 0, 1.0f, 1.0f};
+    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0.0f);
+    {
+        [[UIColor whiteColor] set];
+        [[UIBezierPath bezierPathWithRect:rect] fill];
+        image = UIGraphicsGetImageFromCurrentImageContext();
+    }
+    UIGraphicsEndImageContext();
+    
+    return [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 }
 
 @end

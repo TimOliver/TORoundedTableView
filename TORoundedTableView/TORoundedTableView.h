@@ -13,5 +13,6 @@
 @property (nonatomic, assign) CGFloat regularWidthFraction;
 @property (nonatomic, assign) CGFloat compactPadding;
 @property (nonatomic, assign) CGFloat maximumWidth;
+@property (nonatomic, assign) CGFloat cornerRadius;
 
 @end
