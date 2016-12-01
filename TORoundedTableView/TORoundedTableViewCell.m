@@ -63,6 +63,9 @@
 {
     self.backgroundColor = [UIColor whiteColor];
     _selectedBackgroundColor = TOROUNDEDTABLEVIEW_DEFAULT_SELECTED_COLOR;
+    
+    // Set up the background views as image views
+    [self setUpBackgroundViews];
 }
 
 - (void)setUpBackgroundViews
@@ -88,29 +91,24 @@
 #pragma mark - Update Image State -
 - (void)setBackgroundImage:(UIImage *)image
 {
-    // Set up the background views as image views
-    [self setUpBackgroundViews];
-    
     UIImageView *backgroundView = (UIImageView *)self.backgroundView;
     UIImageView *selectedBackgroundView = (UIImageView *)self.selectedBackgroundView;
     
-    if (image && !backgroundView.image) {
-        self.originalBackgroundColor = self.backgroundColor;
-        self.backgroundColor = [UIColor clearColor];
+    if (image && backgroundView.image != image) {
+        UIColor *clearColor = [UIColor clearColor];
+        if (self.backgroundColor != clearColor) {
+            self.originalBackgroundColor = self.backgroundColor;
+        }
+        self.backgroundColor = clearColor;
         
         backgroundView.image = image;
         backgroundView.tintColor = self.originalBackgroundColor;
+        backgroundView.hidden = NO;
         
         selectedBackgroundView.image = image;
-        selectedBackgroundView.backgroundColor = [UIColor clearColor];
-        selectedBackgroundView.tintColor = self.selectedBackgroundColor;
-        
-        backgroundView.frame = self.bounds;
-        selectedBackgroundView.frame = self.bounds;
-        
-        backgroundView.hidden = NO;
+        selectedBackgroundView.backgroundColor = clearColor;
     }
-    else if (!image && backgroundView.image) {
+    else {
         self.backgroundColor = self.originalBackgroundColor ?: [UIColor whiteColor];
         backgroundView.image = nil;
         backgroundView.hidden = YES;
@@ -133,18 +131,21 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-
+    
+    if (!self.backgroundView.hidden) {
+        CGRect backgroundViewFrame = self.backgroundView.frame;
+        backgroundViewFrame = self.bounds;
+        backgroundViewFrame.size.height += 1.0f;
+        self.backgroundView.frame = backgroundViewFrame;
+    }
+    
     // Search for any section exterior separator views that were added and hide them
     for (UIView *view in self.subviews) {
-        if (NSStringFromClass(view.class).hash != 1141955748541228649U) { continue; } //_UITableViewCellSeparatorView
+        if (!(NSStringFromClass(view.class).hash == 1141955748541228649U)) { continue; } //_UITableViewCellSeparatorView
 
-        CGFloat hairLineHeight = 1.0f / [UIScreen mainScreen].scale;
-        CGFloat totalWidth = self.frame.size.width;
-        
         CGRect frame = view.frame;
-        if (frame.origin.x > FLT_EPSILON)                       { continue; } // Doesn't start at the very edge
-        if (frame.size.height > hairLineHeight + FLT_EPSILON)   { continue; } // View is thicker than a hairline
-        if (frame.size.width < totalWidth - FLT_EPSILON)        { continue; } // Doesn't span the entire length of cell
+        if (frame.origin.x > FLT_EPSILON)             { continue; } // Doesn't start at the very edge
+        if (frame.size.height > 1.0f + FLT_EPSILON)   { continue; } // View is thicker than a hairline
         
         self.exteriorSeparatorView = view;
         view.backgroundColor = [UIColor clearColor];

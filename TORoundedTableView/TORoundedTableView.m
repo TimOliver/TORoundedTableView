@@ -32,11 +32,6 @@
 // View resizing
 - (void)resizeView:(UIView *)view forColumnWidth:(CGFloat)width centered:(BOOL)centered;
 
-// Table cell configuration
-- (void)configureBackgroundViewsForCell:(UITableViewCell *)cell;
-- (void)configureVisibleTableViewCellsInWrapperView:(UIView *)wrapperView withColumnWidth:(CGFloat)columnWidth;
-- (void)configureStyleForTableViewCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
-
 // Image Generation
 + (UIImage *)resizabledRoundedImageWithRadius:(CGFloat)radius topRounded:(BOOL)top bottomRounded:(BOOL)bottom;
 

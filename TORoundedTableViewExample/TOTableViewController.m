@@ -24,7 +24,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 50;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -39,16 +39,29 @@
 
 - (UITableViewCell *)tableView:(TORoundedTableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *identifier = @"Cell";
+    static NSString *topIdentifier = @"TopCell";
+    static NSString *middleIdentifier = @"MidCell";
+    static NSString *bottomIdentifier = @"BottomCell";
+    
+    BOOL isTop = (indexPath.row == 0);
+    BOOL isBottom = (indexPath.row == 9);
+    
+    NSString *identifier = nil;
+    if (isTop) {
+        identifier = topIdentifier;
+    }
+    else if (isBottom) {
+        identifier = bottomIdentifier;
+    }
+    else {
+        identifier = middleIdentifier;
+    }
+    
     TORoundedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
         cell = [[TORoundedTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
+        [tableView configureStyleForCell:cell firstInSection:isTop lastInSection:isBottom];
     }
-    
-    // Configure the cell's styles depending on its position in the section
-    BOOL isTop = (indexPath.row == 0);
-    BOOL isBottom = (indexPath.row == 9);
-    [tableView configureStyleForCell:cell firstInSection:isTop lastInSection:isBottom];
     
     cell.textLabel.text = [NSString stringWithFormat:@"Cell %ld", indexPath.row+1];
     cell.detailTextLabel.text = @"Subtitle";
