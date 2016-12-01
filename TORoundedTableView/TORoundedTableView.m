@@ -7,6 +7,14 @@
 //
 
 #import "TORoundedTableView.h"
+#import "TORoundedTableViewCell.h"
+
+// Private declaration of internal cell properties
+@interface TORoundedTableViewCell ()
+- (void)setBackgroundImage:(UIImage *)image;
+@end
+
+// -------------------------------------------------------
 
 @interface TORoundedTableView ()
 
@@ -14,34 +22,23 @@
 @property (nonatomic, strong) UIImage *bottomBackgroundImage;
 @property (nonatomic, strong) UIImage *topAndBottomBackgroundImage;
 
-@property (nonatomic, strong) UIImage *backgroundImage;
-
-@property (nonatomic, strong) NSArray *previousVisibleCells;
-
 // View Lifecyle
 - (void)setUp;
 - (void)loadBackgroundImages;
-
-// Table View Introspection
-- (UIView *)wrapperViewForTable;
 
 // Size Caluclations
 - (CGFloat)widthForCurrentSizeClass;
 
 // View resizing
-- (void)resizeWrapperView:(UIView *)wrapperView forColumnWidth:(CGFloat)columnWidth;
-- (void)resizeAuxiliaryViewsInWrapperView:(UIView *)wrapperView forColumnWidth:(CGFloat)width;
-- (void)resizeView:(UIView *)view forColumnWidth:(CGFloat)width;
+- (void)resizeView:(UIView *)view forColumnWidth:(CGFloat)width centered:(BOOL)centered;
 
 // Table cell configuration
-- (void)removeExteriorCellSeparatorViewsFromCell:(UITableViewCell *)cell;
 - (void)configureBackgroundViewsForCell:(UITableViewCell *)cell;
 - (void)configureVisibleTableViewCellsInWrapperView:(UIView *)wrapperView withColumnWidth:(CGFloat)columnWidth;
 - (void)configureStyleForTableViewCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 
 // Image Generation
 + (UIImage *)resizabledRoundedImageWithRadius:(CGFloat)radius topRounded:(BOOL)top bottomRounded:(BOOL)bottom;
-+ (UIImage *)singlePixelImage;
 
 @end
 
@@ -94,30 +91,24 @@
 
 - (void)setUp
 {
-    _regularWidthFraction = 0.8f;
-    _cornerRadius = 8.0f;
+    _sectionCornerRadius = 8.0f;
 }
 
 - (void)loadBackgroundImages
 {
     // Load the top image
     if (!self.topBackgroundImage) {
-        self.topBackgroundImage = [[self class] resizabledRoundedImageWithRadius:self.cornerRadius topRounded:YES bottomRounded:NO];
+        self.topBackgroundImage = [[self class] resizabledRoundedImageWithRadius:self.sectionCornerRadius topRounded:YES bottomRounded:NO];
     }
     
     // Load the singular image
     if (!self.topAndBottomBackgroundImage) {
-        self.topAndBottomBackgroundImage = [[self class] resizabledRoundedImageWithRadius:self.cornerRadius topRounded:YES bottomRounded:YES];
+        self.topAndBottomBackgroundImage = [[self class] resizabledRoundedImageWithRadius:self.sectionCornerRadius topRounded:YES bottomRounded:YES];
     }
     
     // Load the bottom image
     if (!self.bottomBackgroundImage) {
-        self.bottomBackgroundImage = [[self class] resizabledRoundedImageWithRadius:self.cornerRadius topRounded:NO bottomRounded:YES];
-    }
-    
-    // Load the solid image
-    if (!self.backgroundImage) {
-        self.backgroundImage = [[self class] singlePixelImage];
+        self.bottomBackgroundImage = [[self class] resizabledRoundedImageWithRadius:self.sectionCornerRadius topRounded:NO bottomRounded:YES];
     }
 }
 
@@ -132,136 +123,30 @@
 
 #pragma mark - Content Resizing / Layout -
 
-- (UIView *)wrapperViewForTable
-{
-    UIView *wrapperView = nil;
-    for (UIView *view in self.subviews) {
-        NSUInteger hash = NSStringFromClass([view class]).hash;
-        if (hash == (NSUInteger)10216744557202100403U) { // UITableViewWrapperView
-            wrapperView = view;
-            break;
-        }
-    }
-    
-    return wrapperView;
-}
-
 - (CGFloat)widthForCurrentSizeClass
 {
-    return self.frame.size.width * self.regularWidthFraction;
+    return self.frame.size.width - 100.0f;
 }
 
-- (void)resizeView:(UIView *)view forColumnWidth:(CGFloat)width
+- (void)resizeView:(UIView *)view forColumnWidth:(CGFloat)columnWidth centered:(BOOL)centered
 {
     CGRect frame = view.frame;
-    if (frame.size.width < width + FLT_EPSILON) { return; }
-    frame.size.width = width;
+    if (frame.size.width < columnWidth + FLT_EPSILON) { return; }
+    frame.size.width = columnWidth;
+    if (centered) { frame.origin.x = (self.frame.size.width - columnWidth) * 0.5f; }
     view.frame = frame;
 }
 
-- (void)resizeWrapperView:(UIView *)wrapperView forColumnWidth:(CGFloat)columnWidth
+#pragma mark - Cell Configuration -
+- (void)configureStyleForCell:(TORoundedTableViewCell *)cell firstInSection:(BOOL)first lastInSection:(BOOL)last
 {
-    CGRect frame = wrapperView.frame;
-    if (frame.size.width < columnWidth + FLT_EPSILON) { return; }
-    frame.size.width = columnWidth;
-    frame.origin.x = (self.frame.size.width - columnWidth) * 0.5f;
-    wrapperView.frame = frame;
-}
-
-- (void)resizeAuxiliaryViewsInWrapperView:(UIView *)wrapperView forColumnWidth:(CGFloat)width
-{
-    for (UIView *view in wrapperView.subviews) {
-        // skip table cells; we'll handle those later
-        if ([view isKindOfClass:[UITableViewCell class]]) {
-            continue;
-        }
-        
-        [self resizeView:view forColumnWidth:width];
-    }
-}
-
-- (void)removeExteriorCellSeparatorViewsFromCell:(UITableViewCell *)cell
-{
-    CGFloat hairLineHeight = 1.0f / [UIScreen mainScreen].scale;
-    CGFloat totalWidth = cell.frame.size.width;
+    UIImage *image = nil;
     
-    for (UIView *view in cell.subviews) {
-        CGRect frame = view.frame;
-        if (frame.origin.x > FLT_EPSILON)                       { continue; } // Doesn't start at the very edge
-        if (frame.size.height > hairLineHeight + FLT_EPSILON)   { continue; } // View is thicker than a hairline
-        if (frame.size.width < totalWidth - FLT_EPSILON)        { continue; } // Doesn't span the entire length of cell
-        [view removeFromSuperview];
-    }
-}
-
-- (void)configureBackgroundViewsForCell:(UITableViewCell *)cell
-{
-    Class class = [UIImageView class];
-    if ([cell.backgroundView isKindOfClass:class] && [cell.selectedBackgroundView isKindOfClass:class]) {
-        return;
-    }
+    if (first && last) { image = self.topAndBottomBackgroundImage; }
+    else if (first)    { image = self.topBackgroundImage; }
+    else if (last)     { image = self.bottomBackgroundImage; }
     
-    // Configure the default background view
-    cell.backgroundView = [[UIImageView alloc] initWithImage:self.backgroundImage];
-    cell.backgroundView.layer.magnificationFilter = kCAFilterNearest;
-    cell.backgroundView.tintColor = [UIColor whiteColor];
-    cell.backgroundView.hidden = YES;
-    
-    // Configure the 'tapped' background view
-    cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:self.backgroundImage];
-    cell.selectedBackgroundView.layer.magnificationFilter = kCAFilterNearest;
-    cell.selectedBackgroundView.tintColor = [UIColor colorWithWhite:0.9f alpha:1.0f];
-}
-
-- (void)configureStyleForTableViewCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
-{
-    BOOL firstCellInSection = indexPath.row == 0;
-    BOOL lastCellInSection = indexPath.row == ([self numberOfRowsInSection:indexPath.section]-1);
-    
-    if (!firstCellInSection && !lastCellInSection) {
-        cell.backgroundColor = [UIColor whiteColor];
-        cell.backgroundView.hidden = YES;
-        return;
-    }
-    
-    // Remove the section border separator lines
-    [self removeExteriorCellSeparatorViewsFromCell:cell];
-    
-    UIImageView *backgroundView = (UIImageView *)cell.backgroundView;
-    UIImageView *selectedBackgroundView = (UIImageView *)cell.selectedBackgroundView;
-    
-    UIImage *image = firstCellInSection ? self.topBackgroundImage : self.bottomBackgroundImage;
-    if (firstCellInSection && lastCellInSection) {
-        image = self.topAndBottomBackgroundImage;
-    }
-    
-    if (!backgroundView.hidden && image == backgroundView.image) { return; }
-    
-    backgroundView.image = image;
-    selectedBackgroundView.image = image;
-    cell.backgroundColor = [UIColor clearColor];
-    cell.backgroundView.hidden = NO;
-}
-
-- (void)configureVisibleTableViewCellsInWrapperView:(UIView *)wrapperView withColumnWidth:(CGFloat)columnWidth
-{
-    NSArray *indexPaths = [self indexPathsForVisibleRows];
-    BOOL pendingChanges = ![self.previousVisibleCells isEqualToArray:indexPaths];
-    
-    if (!pendingChanges) {
-        return;
-    }
-    
-    for (NSIndexPath *indexPath in indexPaths) {
-        UITableViewCell *cell = [self cellForRowAtIndexPath:indexPath];
-        if (cell == nil) { continue; }
-    
-        [self resizeView:cell forColumnWidth:columnWidth];
-        [self configureBackgroundViewsForCell:cell];
-        [self configureStyleForTableViewCell:cell atIndexPath:indexPath];
-    }
-    
-    self.previousVisibleCells = indexPaths;
+    [cell setBackgroundImage:image];
 }
 
 #pragma mark - Layout Override -
@@ -270,20 +155,33 @@
 {
     [super layoutSubviews];
     
-    //Loop through the subviews to find the wrapper view
-    UIView *wrapperView = [self wrapperViewForTable];
-    if (!wrapperView) { return; }
-    
+    // Work out the width of the column
     CGFloat columnWidth = [self widthForCurrentSizeClass];
-
-    // Set the width / inset of the wrapper view
-    [self resizeWrapperView:wrapperView forColumnWidth:columnWidth];
     
-    // Resize all non-table cell views
-    //[self resizeAuxiliaryViewsInWrapperView:wrapperView forColumnWidth:columnWidth];
+    // Loop through every subview related to 'UITableView' and resize it
+    for (UIView *subview in self.subviews) {
+        if (![subview isKindOfClass:[UIImageView class]]) { // Resize everything but the scroll indicators
+            [self resizeView:subview forColumnWidth:columnWidth centered:YES];
+        }
+    }
+}
 
-    // Restyle and reconfigure each table view cell
-    //[self configureVisibleTableViewCellsInWrapperView:wrapperView withColumnWidth:columnWidth];
+#pragma mark - Accessor Overrides -
+
+- (void)setSectionCornerRadius:(CGFloat)sectionCornerRadius
+{
+    if (fabs(sectionCornerRadius - _sectionCornerRadius) < FLT_EPSILON) {
+        return;
+    }
+    
+    _sectionCornerRadius = sectionCornerRadius;
+    
+    self.topBackgroundImage = nil;
+    self.bottomBackgroundImage = nil;
+    self.topAndBottomBackgroundImage = nil;
+    
+    [self loadBackgroundImages];
+    [self reloadData];
 }
 
 #pragma mark - Image Generation -
@@ -322,21 +220,6 @@
     image = [image resizableImageWithCapInsets:insets];
     
     // Make the image conform to the tint color
-    return [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-}
-
-+ (UIImage *)singlePixelImage
-{
-    UIImage *image = nil;
-    CGRect rect = (CGRect){0, 0, 1.0f, 1.0f};
-    UIGraphicsBeginImageContextWithOptions(rect.size, YES, 0.0f);
-    {
-        [[UIColor whiteColor] set];
-        [[UIBezierPath bezierPathWithRect:rect] fill];
-        image = UIGraphicsGetImageFromCurrentImageContext();
-    }
-    UIGraphicsEndImageContext();
-    
     return [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 }
 

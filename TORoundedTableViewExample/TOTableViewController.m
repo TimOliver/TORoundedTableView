@@ -8,6 +8,7 @@
 
 #import "TOTableViewController.h"
 
+#import "TORoundedTableView.h"
 #import "TORoundedTableViewCell.h"
 
 @interface TOTableViewController ()
@@ -31,13 +32,23 @@
     return 10;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return [NSString stringWithFormat:@"Section %ld", section];
+}
+
+- (UITableViewCell *)tableView:(TORoundedTableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *identifier = @"Cell";
     TORoundedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
         cell = [[TORoundedTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
+    
+    // Configure the cell's styles depending on its position in the section
+    BOOL isTop = (indexPath.row == 0);
+    BOOL isBottom = (indexPath.row == 9);
+    [tableView configureStyleForCell:cell firstInSection:isTop lastInSection:isBottom];
     
     cell.textLabel.text = [NSString stringWithFormat:@"Cell %ld", indexPath.row+1];
     cell.detailTextLabel.text = @"Subtitle";

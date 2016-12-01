@@ -58,3 +58,9 @@ fastlane/screenshots
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
+RevealServer.framework/Info.plist
+RevealServer.framework/RevealServer
+RevealServer.framework/_CodeSignature/CodeResources
+RevealServer.framework/Headers/RevealServer.h
+RevealServer.framework/Modules/module.modulemap
+RevealServer.framework/Scripts/copy_and_codesign_revealserver.sh

@@ -12,9 +12,14 @@
 
 @interface TORoundedTableView : UITableView
 
-@property (nonatomic, assign) CGFloat regularWidthFraction;
+/** The distance from the edges of each side of the table view */
+@property (nonatomic, assign) CGFloat horizontalInset;
+
+/** The maximum width that the table cells / accessory views may be */
 @property (nonatomic, assign) CGFloat maximumWidth;
-@property (nonatomic, assign) CGFloat cornerRadius;
+
+/** The corner radius of each section */
+@property (nonatomic, assign) CGFloat sectionCornerRadius;
 
 - (void)configureStyleForCell:(TORoundedTableViewCell *)cell firstInSection:(BOOL)first lastInSection:(BOOL)last;
 
