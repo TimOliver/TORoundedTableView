@@ -8,6 +8,8 @@
 
 #import "TOTableViewController.h"
 
+#import "TORoundedTableViewCell.h"
+
 @interface TOTableViewController ()
 
 @end
@@ -32,9 +34,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *identifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    TORoundedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
+        cell = [[TORoundedTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
     
     cell.textLabel.text = [NSString stringWithFormat:@"Cell %ld", indexPath.row+1];

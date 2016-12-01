@@ -95,7 +95,6 @@
 - (void)setUp
 {
     _regularWidthFraction = 0.8f;
-    _compactPadding = 10.0f;
     _cornerRadius = 8.0f;
 }
 
@@ -149,11 +148,7 @@
 
 - (CGFloat)widthForCurrentSizeClass
 {
-    if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassRegular) {
-        return self.frame.size.width * self.regularWidthFraction;
-    }
-    
-    return self.frame.size.width - (self.compactPadding * 2.0f);
+    return self.frame.size.width * self.regularWidthFraction;
 }
 
 - (void)resizeView:(UIView *)view forColumnWidth:(CGFloat)width
@@ -285,10 +280,10 @@
     [self resizeWrapperView:wrapperView forColumnWidth:columnWidth];
     
     // Resize all non-table cell views
-    [self resizeAuxiliaryViewsInWrapperView:wrapperView forColumnWidth:columnWidth];
+    //[self resizeAuxiliaryViewsInWrapperView:wrapperView forColumnWidth:columnWidth];
 
     // Restyle and reconfigure each table view cell
-    [self configureVisibleTableViewCellsInWrapperView:wrapperView withColumnWidth:columnWidth];
+    //[self configureVisibleTableViewCellsInWrapperView:wrapperView withColumnWidth:columnWidth];
 }
 
 #pragma mark - Image Generation -

@@ -8,11 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class TORoundedTableViewCell;
+
 @interface TORoundedTableView : UITableView
 
 @property (nonatomic, assign) CGFloat regularWidthFraction;
-@property (nonatomic, assign) CGFloat compactPadding;
 @property (nonatomic, assign) CGFloat maximumWidth;
 @property (nonatomic, assign) CGFloat cornerRadius;
+
+- (void)configureStyleForCell:(TORoundedTableViewCell *)cell firstInSection:(BOOL)first lastInSection:(BOOL)last;
 
 @end
