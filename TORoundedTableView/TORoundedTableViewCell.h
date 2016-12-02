@@ -10,6 +10,9 @@
 
 @interface TORoundedTableViewCell : UITableViewCell
 
+/** The parent table view */
+@property (nonatomic, weak) UITableView *tableView;
+
 /** Set the background color of the cell when selected */
 @property (nonatomic, strong) UIColor *selectedBackgroundColor;
 

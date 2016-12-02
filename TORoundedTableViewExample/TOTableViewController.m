@@ -61,6 +61,7 @@
     if (cell == nil) {
         cell = [[TORoundedTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
         [tableView configureStyleForCell:cell firstInSection:isTop lastInSection:isBottom];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     cell.textLabel.text = [NSString stringWithFormat:@"Cell %ld", indexPath.row+1];

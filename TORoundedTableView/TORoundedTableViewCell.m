@@ -91,31 +91,31 @@
 #pragma mark - Update Image State -
 - (void)setBackgroundImage:(UIImage *)image
 {
-    UIImageView *backgroundView = (UIImageView *)self.backgroundView;
-    UIImageView *selectedBackgroundView = (UIImageView *)self.selectedBackgroundView;
-    
-    if (image && backgroundView.image != image) {
-        UIColor *clearColor = [UIColor clearColor];
-        if (self.backgroundColor != clearColor) {
-            self.originalBackgroundColor = self.backgroundColor;
-        }
-        self.backgroundColor = clearColor;
-        
-        backgroundView.image = image;
-        backgroundView.tintColor = self.originalBackgroundColor;
-        backgroundView.hidden = NO;
-        
-        selectedBackgroundView.image = image;
-        selectedBackgroundView.backgroundColor = clearColor;
-    }
-    else {
-        self.backgroundColor = self.originalBackgroundColor ?: [UIColor whiteColor];
-        backgroundView.image = nil;
-        backgroundView.hidden = YES;
-        
-        selectedBackgroundView.image = nil;
-        selectedBackgroundView.backgroundColor = self.selectedBackgroundColor;
-    }
+//    UIImageView *backgroundView = (UIImageView *)self.backgroundView;
+//    UIImageView *selectedBackgroundView = (UIImageView *)self.selectedBackgroundView;
+//    
+//    if (image && backgroundView.image != image) {
+//        UIColor *clearColor = [UIColor clearColor];
+//        if (self.backgroundColor != clearColor) {
+//            self.originalBackgroundColor = self.backgroundColor;
+//        }
+//        self.backgroundColor = clearColor;
+//        
+//        backgroundView.image = image;
+//        backgroundView.tintColor = self.originalBackgroundColor;
+//        backgroundView.hidden = NO;
+//        
+//        selectedBackgroundView.image = image;
+//        selectedBackgroundView.backgroundColor = clearColor;
+//    }
+//    else {
+//        self.backgroundColor = self.originalBackgroundColor ?: [UIColor whiteColor];
+//        backgroundView.image = nil;
+//        backgroundView.hidden = YES;
+//        
+//        selectedBackgroundView.image = nil;
+//        selectedBackgroundView.backgroundColor = self.selectedBackgroundColor;
+//    }
 }
 
 #pragma mark - Layout Overrides -
@@ -123,8 +123,7 @@
 - (void)setFrame:(CGRect)frame
 {
     // Clamp the width of the view to the width of the wrapper
-    CGFloat wrapperWidth = self.superview.frame.size.width;
-    frame.size.width = wrapperWidth;
+    frame.size.width = self.superview.frame.size.width;
     [super setFrame:frame];
 }
 

@@ -87,6 +87,7 @@
 - (void)setUp
 {
     _sectionCornerRadius = 8.0f;
+    _horizontalInset = 10.0f;
 }
 
 - (void)loadBackgroundImages
@@ -120,7 +121,14 @@
 
 - (CGFloat)widthForCurrentSizeClass
 {
-    return self.frame.size.width - 100.0f;
+    CGFloat width = self.frame.size.width;
+    width -= self.horizontalInset * 2.0f;
+    
+    if (self.maximumWidth > 0.0f) {
+        width = MIN(self.maximumWidth, width);
+    }
+
+    return width;
 }
 
 - (void)resizeView:(UIView *)view forColumnWidth:(CGFloat)columnWidth centered:(BOOL)centered
@@ -135,6 +143,8 @@
 #pragma mark - Cell Configuration -
 - (void)configureStyleForCell:(TORoundedTableViewCell *)cell firstInSection:(BOOL)first lastInSection:(BOOL)last
 {
+    cell.tableView = self;
+
     UIImage *image = nil;
     
     if (first && last) { image = self.topAndBottomBackgroundImage; }
@@ -149,7 +159,7 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
+
     // Work out the width of the column
     CGFloat columnWidth = [self widthForCurrentSizeClass];
     
