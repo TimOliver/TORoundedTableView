@@ -10,6 +10,7 @@
 
 #import "TORoundedTableView.h"
 #import "TORoundedTableViewCell.h"
+#import "TORoundedTableViewCapCell.h"
 
 @interface TODetailTableViewController ()
 
@@ -24,12 +25,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 50;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return [@[@(3), @(1), @(2)][section] integerValue];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -40,18 +41,35 @@
 - (UITableViewCell *)tableView:(TORoundedTableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"Cell";
+    static NSString *capCellIdentifier = @"CapCell";
     
     BOOL isTop = (indexPath.row == 0);
-    BOOL isBottom = (indexPath.row == 9);
+    BOOL isBottom = indexPath.row == ([tableView numberOfRowsInSection:indexPath.section] - 1);
     
     UITableViewCell *cell = nil;
 
-    cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (cell == nil) {
-        cell = [[TORoundedTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    if (!isTop && !isBottom) {
+        TORoundedTableViewCell *normalCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (normalCell == nil) {
+            normalCell = [[TORoundedTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+            normalCell.textLabel.backgroundColor = [UIColor whiteColor];
+        }
+        
+        cell = normalCell;
     }
-    
+    else {
+        TORoundedTableViewCapCell *capCell = [tableView dequeueReusableCellWithIdentifier:capCellIdentifier];
+        if (capCell == nil) {
+            capCell = [[TORoundedTableViewCapCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:capCellIdentifier];
+            capCell.textLabel.backgroundColor = [UIColor whiteColor];
+        }
+        
+        capCell.topCornersRounded = isTop;
+        capCell.bottomCornersRounded = isBottom;
+        
+        cell = capCell;
+    }
+
     cell.textLabel.text = [NSString stringWithFormat:@"Cell %ld", indexPath.row+1];
     
     return cell;

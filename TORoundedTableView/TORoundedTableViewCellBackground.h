@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TORoundedTableBackgroundView : UIView
+@interface TORoundedTableViewCellBackground : UIView
 
 @property (nonatomic, strong) UIImage *roundedCornerImage;
 
-@property (nonatomic, assign) BOOL showTopCorners;
-@property (nonatomic, assign) BOOL showBottomCorners;
+@property (nonatomic, assign) BOOL topCornersRounded;
+@property (nonatomic, assign) BOOL bottomCornersRounded;
 
 @end

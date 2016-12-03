@@ -18,13 +18,11 @@
 
 @interface TORoundedTableView ()
 
-@property (nonatomic, strong) UIImage *topBackgroundImage;
-@property (nonatomic, strong) UIImage *bottomBackgroundImage;
-@property (nonatomic, strong) UIImage *topAndBottomBackgroundImage;
+@property (nonatomic, strong) UIImage *roundedCornerImage;
 
 // View Lifecyle
 - (void)setUp;
-- (void)loadBackgroundImages;
+- (void)loadCornerImage;
 
 // Size Caluclations
 - (CGFloat)widthForCurrentSizeClass;
@@ -33,7 +31,7 @@
 - (void)resizeView:(UIView *)view forColumnWidth:(CGFloat)width centered:(BOOL)centered;
 
 // Image Generation
-+ (UIImage *)resizabledRoundedImageWithRadius:(CGFloat)radius topRounded:(BOOL)top bottomRounded:(BOOL)bottom;
++ (UIImage *)roundedCornerImageWithRadius:(CGFloat)radius;
 
 @end
 
@@ -91,21 +89,11 @@
     _maximumWidth = 675.0f;
 }
 
-- (void)loadBackgroundImages
+- (void)loadCornerImage
 {
     // Load the top image
-    if (!self.topBackgroundImage) {
-        self.topBackgroundImage = [[self class] resizabledRoundedImageWithRadius:self.sectionCornerRadius topRounded:YES bottomRounded:NO];
-    }
-    
-    // Load the singular image
-    if (!self.topAndBottomBackgroundImage) {
-        self.topAndBottomBackgroundImage = [[self class] resizabledRoundedImageWithRadius:self.sectionCornerRadius topRounded:YES bottomRounded:YES];
-    }
-    
-    // Load the bottom image
-    if (!self.bottomBackgroundImage) {
-        self.bottomBackgroundImage = [[self class] resizabledRoundedImageWithRadius:self.sectionCornerRadius topRounded:NO bottomRounded:YES];
+    if (!self.roundedCornerImage) {
+        self.roundedCornerImage = [[self class] roundedCornerImageWithRadius:self.sectionCornerRadius];
     }
 }
 
@@ -115,7 +103,7 @@
         return;
     }
     
-    [self loadBackgroundImages];
+    [self loadCornerImage];
 }
 
 #pragma mark - Content Resizing / Layout -
@@ -139,18 +127,6 @@
     frame.size.width = columnWidth;
     if (centered) { frame.origin.x = (self.frame.size.width - columnWidth) * 0.5f; }
     view.frame = frame;
-}
-
-#pragma mark - Cell Configuration -
-- (void)configureStyleForCell:(TORoundedTableViewCell *)cell firstInSection:(BOOL)first lastInSection:(BOOL)last
-{
-    UIImage *image = nil;
-    
-    if (first && last) { image = self.topAndBottomBackgroundImage; }
-    else if (first)    { image = self.topBackgroundImage; }
-    else if (last)     { image = self.bottomBackgroundImage; }
-    
-    [cell setBackgroundImage:image];
 }
 
 #pragma mark - Layout Override -
@@ -181,48 +157,30 @@
     
     _sectionCornerRadius = sectionCornerRadius;
     
-    self.topBackgroundImage = nil;
-    self.bottomBackgroundImage = nil;
-    self.topAndBottomBackgroundImage = nil;
+    self.roundedCornerImage = nil;
     
-    [self loadBackgroundImages];
+    [self loadCornerImage];
     [self reloadData];
 }
 
 #pragma mark - Image Generation -
-+ (UIImage *)resizabledRoundedImageWithRadius:(CGFloat)radius topRounded:(BOOL)top bottomRounded:(BOOL)bottom
++ (UIImage *)roundedCornerImageWithRadius:(CGFloat)radius
 {
     UIImage *image = nil;
     
     // Rectangle if only one side is rounded, square otherwise
-    CGRect rect = CGRectMake(0, 0, (radius * 2) + 2, radius * (top && bottom ? 2 : 1) + 2);
-    
-    // Work out the mask for which corners to be rounded
-    NSUInteger cornerMask = bottom ? (UIRectCornerBottomLeft|UIRectCornerBottomRight) : 0;
-    cornerMask |= top ? (UIRectCornerTopLeft|UIRectCornerTopRight) : 0;
+    CGRect rect = CGRectMake(0, 0, radius * 2, radius * 2);
+    CGSize size = (CGSize){radius, radius};
     
     // Generation the image
-    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0.0f);
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0.0f);
     {
-        UIBezierPath *bezierPath = [UIBezierPath bezierPathWithRoundedRect:rect
-                                                         byRoundingCorners:cornerMask
-                                                               cornerRadii:CGSizeMake(radius, radius)];
-        
+        UIBezierPath *bezierPath = [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:radius];
         [[UIColor whiteColor] set];
         [bezierPath fill];
         image = UIGraphicsGetImageFromCurrentImageContext();
     }
     UIGraphicsEndImageContext();
-
-    // Work out the resiable insets
-    UIEdgeInsets insets = UIEdgeInsetsZero;
-    insets.top = top ? radius : 1.0f;
-    insets.left = radius;
-    insets.right = radius;
-    insets.bottom = bottom ? radius : 1.0f;
-    
-    // Make the image resizable
-    image = [image resizableImageWithCapInsets:insets];
     
     // Make the image conform to the tint color
     return [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
