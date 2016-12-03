@@ -21,4 +21,10 @@
 /** The corner radius of each section */
 @property (nonatomic, assign) CGFloat sectionCornerRadius;
 
+/** The default background color of every cell */
+@property (nonatomic, strong) UIColor *cellBackgroundColor;
+
+/** The default background of each cell when tapped */
+@property (nonatomic, strong) UIColor *cellSelectedBackgroundColor;
+
 @end

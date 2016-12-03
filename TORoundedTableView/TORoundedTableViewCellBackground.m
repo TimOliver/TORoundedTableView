@@ -25,8 +25,12 @@ typedef NS_ENUM(NSInteger, TORoundedTableViewCellBackgroundCorner) {
 
 @interface TORoundedTableViewCellBackground ()
 
-@property (nonatomic, strong) NSArray *views;
-@property (nonatomic, strong) NSArray *cornerViews;
+/** 
+ Layers are used to avoid `UITableViewCell`'s defualt functionality
+ of making the background view transparent when it is tapped.
+ */
+@property (nonatomic, strong) NSArray<CALayer *> *layers;
+@property (nonatomic, strong) NSArray<CALayer *> *cornerLayers;
 
 - (void)setUp;
 
@@ -45,32 +49,30 @@ typedef NS_ENUM(NSInteger, TORoundedTableViewCellBackgroundCorner) {
 
 - (void)setUp
 {
-    self.backgroundColor = [UIColor clearColor];
+    [super setBackgroundColor: [UIColor clearColor]];
     
-    if (self.views == nil) {
-        NSMutableArray *views = [NSMutableArray arrayWithCapacity:3];
+    if (self.layers == nil) {
+        NSMutableArray *layers = [NSMutableArray arrayWithCapacity:3];
         for (NSInteger i = 0; i < TORoundedTableViewCellBackgroundViewNum; i++) {
-            UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
-            view.backgroundColor = [UIColor whiteColor];
-            [views addObject:view];
-            [self addSubview:view];
+            CALayer *layer = [[CALayer alloc] init];
+            layer.backgroundColor = ([UIColor whiteColor].CGColor);
+            [layers addObject:layer];
+            [self.layer addSublayer:layer];
         }
         
-        self.views = [NSArray arrayWithArray:views];
+        self.layers = [NSArray arrayWithArray:layers];
     }
 
-    if (self.cornerViews == nil) {
+    if (self.cornerLayers == nil) {
         NSMutableArray *corners = [NSMutableArray arrayWithCapacity:4];
         for (NSInteger i = 0; i < TORoundedTableViewCellBackgroundCornerNum; i++) {
-            UIImageView *cornerView = [[UIImageView alloc] init];
-            cornerView.tintColor = [UIColor whiteColor];
-            [corners addObject:cornerView];
-            [self addSubview:cornerView];
+            CALayer *cornerLayer = [[CALayer alloc] init];
+            [corners addObject:cornerLayer];
+            [self.layer addSublayer:cornerLayer];
         }
         
-        self.cornerViews = [NSArray arrayWithArray:corners];
+        self.cornerLayers = [NSArray arrayWithArray:corners];
     }
-
 }
 
 #pragma mark - Layout -
@@ -82,84 +84,77 @@ typedef NS_ENUM(NSInteger, TORoundedTableViewCellBackgroundCorner) {
     CGSize boundsSize = self.bounds.size;
     CGRect frame = CGRectZero;
     
-    //Layout top section
-    UIImageView *topLeftImageView  = self.cornerViews[TORoundedTableViewCellBackgroundCornerTopLeft];
-    UIImageView *topRightImageView = self.cornerViews[TORoundedTableViewCellBackgroundCornerTopRight];
-    UIView *topView = self.views[TORoundedTableViewCellBackgroundViewTop];
+    CGSize imageSize = self.roundedCornerImage.size;
+    CGSize cornerLayerSize = (CGSize){imageSize.width * 0.5f, imageSize.height * 0.5f};
     
-    topLeftImageView.hidden = !self.topCornersRounded;
-    topRightImageView.hidden = !self.topCornersRounded;
-    topView.hidden = !self.topCornersRounded;
+    //Layout top section
+    CALayer *topLeftCornerLayer  = self.cornerLayers[TORoundedTableViewCellBackgroundCornerTopLeft];
+    CALayer *topRightCornerLayer = self.cornerLayers[TORoundedTableViewCellBackgroundCornerTopRight];
+    CALayer *topLayer = self.layers[TORoundedTableViewCellBackgroundViewTop];
+    
+    topLeftCornerLayer.hidden = !self.topCornersRounded;
+    topRightCornerLayer.hidden = !self.topCornersRounded;
+    topLayer.hidden = !self.topCornersRounded;
     
     if (self.topCornersRounded) {
-        topLeftImageView.frame = (CGRect){CGPointZero, topLeftImageView.image.size};
+        topLeftCornerLayer.frame = (CGRect){CGPointZero, cornerLayerSize};
         
-        frame = topLeftImageView.frame;
+        frame = topLeftCornerLayer.frame;
         frame.origin.x = boundsSize.width - frame.size.width;
-        topRightImageView.frame = frame;
-        topRightImageView.transform = CGAffineTransformRotate(CGAffineTransformIdentity, M_PI_2);
+        topRightCornerLayer.frame = frame;
         
-        frame.origin.x = CGRectGetMaxX(topLeftImageView.frame);
+        frame.origin.x = CGRectGetMaxX(topLeftCornerLayer.frame);
         frame.size.width = boundsSize.width - (frame.origin.x * 2);
-        topView.frame = frame;
+        topLayer.frame = frame;
     }
     
-    UIView *midView = self.views[TORoundedTableViewCellBackgroundViewMiddle];
+    CALayer *midLayer = self.layers[TORoundedTableViewCellBackgroundViewMiddle];
     
     // Layout out the middle rect
     frame = self.bounds;
     if (self.topCornersRounded) {
-        frame.origin.y += self.roundedCornerImage.size.height;
-        frame.size.height -= self.roundedCornerImage.size.height;
+        frame.origin.y += cornerLayerSize.height;
+        frame.size.height -= cornerLayerSize.height;
     }
     
     if (self.bottomCornersRounded) {
-        frame.size.height -= self.roundedCornerImage.size.height;
+        frame.size.height -= cornerLayerSize.height;
     }
     
-    midView.frame = frame;
+    midLayer.frame = frame;
     
     // Layout bottom section
-    UIImageView *bottomLeftImageView  = self.cornerViews[TORoundedTableViewCellBackgroundCornerBottomLeft];
-    UIImageView *bottomRightImageView = self.cornerViews[TORoundedTableViewCellBackgroundCornerBottomRight];
-    UIView *bottomView = self.views[TORoundedTableViewCellBackgroundViewBottom];
+    CALayer *bottomLeftCornerLayer  = self.cornerLayers[TORoundedTableViewCellBackgroundCornerBottomLeft];
+    CALayer *bottomRightCornerLayer = self.cornerLayers[TORoundedTableViewCellBackgroundCornerBottomRight];
+    CALayer *bottomLayer            = self.layers[TORoundedTableViewCellBackgroundViewBottom];
     
-    bottomLeftImageView.hidden = !self.bottomCornersRounded;
-    bottomRightImageView.hidden = !self.bottomCornersRounded;
-    bottomView.hidden = !self.bottomCornersRounded;
+    bottomLeftCornerLayer.hidden    = !self.bottomCornersRounded;
+    bottomRightCornerLayer.hidden   = !self.bottomCornersRounded;
+    bottomLayer.hidden              = !self.bottomCornersRounded;
     
     if (self.bottomCornersRounded) {
         frame = self.bounds;
-        frame.origin.y = boundsSize.height - self.roundedCornerImage.size.height;
-        frame.size = self.roundedCornerImage.size;
-        bottomLeftImageView.frame = frame;
-        bottomLeftImageView.transform = CGAffineTransformRotate(CGAffineTransformIdentity, M_PI * 1.5f);
+        frame.origin.y = boundsSize.height - cornerLayerSize.height;
+        frame.size = cornerLayerSize;
+        bottomLeftCornerLayer.frame = frame;
         
-        frame.origin.x = boundsSize.width - self.roundedCornerImage.size.width;
-        bottomRightImageView.frame = frame;
-        bottomRightImageView.transform = CGAffineTransformRotate(CGAffineTransformIdentity, M_PI);
+        frame.origin.x = boundsSize.width - cornerLayerSize.width;
+        bottomRightCornerLayer.frame = frame;
         
-        frame.origin.x = self.roundedCornerImage.size.width;
-        frame.size.width = (boundsSize.width - (self.roundedCornerImage.size.width * 2));
-        bottomView.frame = frame;
+        frame.origin.x = cornerLayerSize.width;
+        frame.size.width = (boundsSize.width - (cornerLayerSize.width * 2));
+        bottomLayer.frame = frame;
     }
 }
 
 #pragma mark - Accessor -
 
-- (void)setAlpha:(CGFloat)alpha
-{
-    [super setAlpha:alpha];
-}
-
 - (void)setBackgroundColor:(UIColor *)backgroundColor
 {
-    for (UIView *view in self.views) {
-        view.backgroundColor = backgroundColor;
-    }
+    [super setBackgroundColor:[UIColor clearColor]];
     
-    for (UIImageView *view in self.cornerViews) {
-        view.tintColor = backgroundColor;
+    for (CALayer *layer in self.layers) {
+        layer.backgroundColor = backgroundColor.CGColor;
     }
 }
 
@@ -171,8 +166,29 @@ typedef NS_ENUM(NSInteger, TORoundedTableViewCellBackgroundCorner) {
     
     _roundedCornerImage = roundedCornerImage;
     
-    for (UIImageView *imageView in self.cornerViews) {
-        imageView.image = _roundedCornerImage;
+    CGSize imageSize = _roundedCornerImage.size;
+    CGSize layerSize = (CGSize){imageSize.width * 0.5f, imageSize.height * 0.5f};
+    CGSize contentsSize = (CGSize){0.5f, 0.5f};
+    
+    for (NSInteger i = 0; i < TORoundedTableViewCellBackgroundCornerNum; i++) {
+        CALayer *layer = self.cornerLayers[i];
+        layer.contents = (id)_roundedCornerImage.CGImage;
+        layer.frame = (CGRect){CGPointZero, layerSize};
+        
+        switch (i) {
+            case TORoundedTableViewCellBackgroundCornerTopLeft:
+                layer.contentsRect = (CGRect){CGPointZero, contentsSize};
+                break;
+            case TORoundedTableViewCellBackgroundCornerTopRight:
+                layer.contentsRect = (CGRect){{0.5f, 0.0f}, contentsSize};
+                break;
+            case TORoundedTableViewCellBackgroundCornerBottomLeft:
+                layer.contentsRect = (CGRect){{0.0f, 0.5f}, contentsSize};
+                break;
+            case TORoundedTableViewCellBackgroundCornerBottomRight:
+                layer.contentsRect = (CGRect){{0.5f, 0.5f}, contentsSize};
+                break;
+        }
     }
 }
 

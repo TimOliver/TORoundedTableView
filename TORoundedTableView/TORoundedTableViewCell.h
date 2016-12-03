@@ -10,7 +10,4 @@
 
 @interface TORoundedTableViewCell : UITableViewCell
 
-/** Set the background color of the cell when selected */
-@property (nonatomic, strong) UIColor *selectedBackgroundColor;
-
 @end

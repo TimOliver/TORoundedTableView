@@ -11,12 +11,11 @@
 #import "TORoundedTableView.h"
 #import "TORoundedTableViewCellBackground.h"
 
-#define TOROUNDEDTABLEVIEW_DEFAULT_SELECTED_COLOR [UIColor colorWithWhite:0.85f alpha:1.0f]
-
 // ---
 
 @interface TORoundedTableView ()
 @property (nonatomic, strong) UIImage *roundedCornerImage;
+@property (nonatomic, strong) UIImage *selectedRoundedCornerImage;
 @end
 
 // ---
@@ -55,7 +54,6 @@
     
     if (self.selectedBackgroundView == nil) {
         self.selectedBackgroundView = [[TORoundedTableViewCellBackground alloc] init];
-        self.selectedBackgroundView.backgroundColor = TOROUNDEDTABLEVIEW_DEFAULT_SELECTED_COLOR;
         [super setSelectedBackgroundView:self.selectedBackgroundView];
     }
 }
@@ -80,7 +78,10 @@
     } while ((superview = superview.superview));
     
     self.backgroundView.roundedCornerImage = self.tableView.roundedCornerImage;
-    self.selectedBackgroundView.roundedCornerImage = self.tableView.roundedCornerImage;
+    self.backgroundView.backgroundColor = self.tableView.cellBackgroundColor;
+    
+    self.selectedBackgroundView.roundedCornerImage = self.tableView.selectedRoundedCornerImage;
+    self.selectedBackgroundView.backgroundColor = self.tableView.cellSelectedBackgroundColor;
 }
 
 #pragma mark - Layout -
@@ -88,6 +89,8 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+    
+    self.backgroundView.frame = self.bounds;
     
     // Because the background view is slightly smaller than the cell size by default,
     // the table background pokes through. Extend this cell by an extra point to explicitly

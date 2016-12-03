@@ -9,6 +9,8 @@
 #import "TORoundedTableView.h"
 #import "TORoundedTableViewCell.h"
 
+#define TOROUNDEDTABLEVIEW_SELECTED_BACKGROUND_COLOR [UIColor colorWithWhite:0.85f alpha:1.0f]
+
 // Private declaration of internal cell properties
 @interface TORoundedTableViewCell ()
 - (void)setBackgroundImage:(UIImage *)image;
@@ -19,10 +21,11 @@
 @interface TORoundedTableView ()
 
 @property (nonatomic, strong) UIImage *roundedCornerImage;
+@property (nonatomic, strong) UIImage *selectedRoundedCornerImage;
 
 // View Lifecyle
 - (void)setUp;
-- (void)loadCornerImage;
+- (void)loadCornerImages;
 
 // Size Caluclations
 - (CGFloat)widthForCurrentSizeClass;
@@ -31,7 +34,7 @@
 - (void)resizeView:(UIView *)view forColumnWidth:(CGFloat)width centered:(BOOL)centered;
 
 // Image Generation
-+ (UIImage *)roundedCornerImageWithRadius:(CGFloat)radius;
++ (UIImage *)roundedCornerImageWithRadius:(CGFloat)radius color:(UIColor *)color;
 
 @end
 
@@ -87,13 +90,22 @@
     _sectionCornerRadius = 8.0f;
     _horizontalInset = 22.0f;
     _maximumWidth = 675.0f;
+    _cellBackgroundColor = [UIColor whiteColor];
+    _cellSelectedBackgroundColor = TOROUNDEDTABLEVIEW_SELECTED_BACKGROUND_COLOR;
 }
 
-- (void)loadCornerImage
+- (void)loadCornerImages
 {
-    // Load the top image
+    // Load the rounded image for default cell state
     if (!self.roundedCornerImage) {
-        self.roundedCornerImage = [[self class] roundedCornerImageWithRadius:self.sectionCornerRadius];
+        self.roundedCornerImage = [[self class] roundedCornerImageWithRadius:self.sectionCornerRadius
+                                                                       color:self.cellBackgroundColor];
+    }
+    
+    // Load the rounded image for when the cell is selected
+    if (!self.selectedRoundedCornerImage) {
+        self.selectedRoundedCornerImage = [[self class] roundedCornerImageWithRadius:self.sectionCornerRadius
+                                                                               color:self.cellSelectedBackgroundColor];
     }
 }
 
@@ -103,7 +115,7 @@
         return;
     }
     
-    [self loadCornerImage];
+    [self loadCornerImages];
 }
 
 #pragma mark - Content Resizing / Layout -
@@ -156,34 +168,63 @@
     }
     
     _sectionCornerRadius = sectionCornerRadius;
+
+    self.roundedCornerImage = nil;
+    self.selectedRoundedCornerImage = nil;
+    
+    [self loadCornerImages];
+    [self reloadData];
+}
+
+- (void)setCellBackgroundColor:(UIColor *)cellBackgroundColor
+{
+    if (cellBackgroundColor == _cellBackgroundColor) {
+        return;
+    }
+    
+    _cellBackgroundColor = cellBackgroundColor;
     
     self.roundedCornerImage = nil;
+    [self loadCornerImages];
+    [self reloadData];
+}
+
+- (void)setCellSelectedBackgroundColor:(UIColor *)cellSelectedBackgroundColor
+{
+    if (_cellSelectedBackgroundColor == cellSelectedBackgroundColor) {
+        return;
+    }
     
-    [self loadCornerImage];
+    _cellSelectedBackgroundColor = cellSelectedBackgroundColor;
+    
+    self.selectedRoundedCornerImage = nil;
+    [self loadCornerImages];
     [self reloadData];
 }
 
 #pragma mark - Image Generation -
-+ (UIImage *)roundedCornerImageWithRadius:(CGFloat)radius
++ (UIImage *)roundedCornerImageWithRadius:(CGFloat)radius color:(UIColor *)color
 {
     UIImage *image = nil;
     
+    // Make sure we have a valid color
+    if (color == nil) { color = [UIColor whiteColor]; }
+    
     // Rectangle if only one side is rounded, square otherwise
     CGRect rect = CGRectMake(0, 0, radius * 2, radius * 2);
-    CGSize size = (CGSize){radius, radius};
     
     // Generation the image
-    UIGraphicsBeginImageContextWithOptions(size, NO, 0.0f);
+    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0.0f);
     {
-        UIBezierPath *bezierPath = [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:radius];
-        [[UIColor whiteColor] set];
+        UIBezierPath *bezierPath = [UIBezierPath bezierPathWithOvalInRect:rect];
+        [color set];
         [bezierPath fill];
         image = UIGraphicsGetImageFromCurrentImageContext();
     }
     UIGraphicsEndImageContext();
     
     // Make the image conform to the tint color
-    return [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    return image;
 }
 
 @end
