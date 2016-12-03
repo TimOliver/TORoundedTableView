@@ -25,12 +25,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [@[@(3), @(1), @(2)][section] integerValue];
+    return [@[@(3), @(1), @(2), @(7), @(1)][section] integerValue];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -52,7 +52,6 @@
         TORoundedTableViewCell *normalCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (normalCell == nil) {
             normalCell = [[TORoundedTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
-            normalCell.textLabel.backgroundColor = [UIColor whiteColor];
         }
         
         cell = normalCell;
@@ -61,16 +60,16 @@
         TORoundedTableViewCapCell *capCell = [tableView dequeueReusableCellWithIdentifier:capCellIdentifier];
         if (capCell == nil) {
             capCell = [[TORoundedTableViewCapCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:capCellIdentifier];
-            capCell.textLabel.backgroundColor = [UIColor whiteColor];
         }
         
         capCell.topCornersRounded = isTop;
         capCell.bottomCornersRounded = isBottom;
-        
         cell = capCell;
     }
 
     cell.textLabel.text = [NSString stringWithFormat:@"Cell %ld", indexPath.row+1];
+    cell.textLabel.backgroundColor = [UIColor whiteColor];
+    cell.textLabel.opaque = YES;
     
     return cell;
 }
