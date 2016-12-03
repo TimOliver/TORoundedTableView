@@ -9,12 +9,14 @@
 /* Begin PBXBuildFile section */
 		22576FBD1DEE997E0001586A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 22576FBC1DEE997E0001586A /* main.m */; };
 		22576FC01DEE997E0001586A /* TOAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22576FBF1DEE997E0001586A /* TOAppDelegate.m */; };
-		22576FC31DEE997E0001586A /* TOTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22576FC21DEE997E0001586A /* TOTableViewController.m */; };
+		22576FC31DEE997E0001586A /* TODetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22576FC21DEE997E0001586A /* TODetailTableViewController.m */; };
 		22576FC61DEE997E0001586A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22576FC41DEE997E0001586A /* Main.storyboard */; };
 		22576FC81DEE997E0001586A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22576FC71DEE997E0001586A /* Assets.xcassets */; };
 		22576FCB1DEE997E0001586A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22576FC91DEE997E0001586A /* LaunchScreen.storyboard */; };
 		22576FD51DEE9D2D0001586A /* TORoundedTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22576FD41DEE9D2D0001586A /* TORoundedTableView.m */; };
 		F11D88051DEFB9410026DDCC /* TORoundedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F11D88041DEFB9410026DDCC /* TORoundedTableViewCell.m */; };
+		F1BC39201DF25DDF00C4DCCC /* TOMasterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F1BC391F1DF25DDF00C4DCCC /* TOMasterTableViewController.m */; };
+		F1BC39261DF26D0900C4DCCC /* TORoundedTableBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = F1BC39251DF26D0900C4DCCC /* TORoundedTableBackgroundView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,8 +24,8 @@
 		22576FBC1DEE997E0001586A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		22576FBE1DEE997E0001586A /* TOAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TOAppDelegate.h; sourceTree = "<group>"; };
 		22576FBF1DEE997E0001586A /* TOAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TOAppDelegate.m; sourceTree = "<group>"; };
-		22576FC11DEE997E0001586A /* TOTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TOTableViewController.h; sourceTree = "<group>"; };
-		22576FC21DEE997E0001586A /* TOTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TOTableViewController.m; sourceTree = "<group>"; };
+		22576FC11DEE997E0001586A /* TODetailTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TODetailTableViewController.h; sourceTree = "<group>"; };
+		22576FC21DEE997E0001586A /* TODetailTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TODetailTableViewController.m; sourceTree = "<group>"; };
 		22576FC51DEE997E0001586A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		22576FC71DEE997E0001586A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		22576FCA1DEE997E0001586A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -32,6 +34,10 @@
 		22576FD41DEE9D2D0001586A /* TORoundedTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TORoundedTableView.m; path = TORoundedTableView/TORoundedTableView.m; sourceTree = "<group>"; };
 		F11D88031DEFB9410026DDCC /* TORoundedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TORoundedTableViewCell.h; path = TORoundedTableView/TORoundedTableViewCell.h; sourceTree = "<group>"; };
 		F11D88041DEFB9410026DDCC /* TORoundedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TORoundedTableViewCell.m; path = TORoundedTableView/TORoundedTableViewCell.m; sourceTree = "<group>"; };
+		F1BC391E1DF25DDF00C4DCCC /* TOMasterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOMasterTableViewController.h; sourceTree = "<group>"; };
+		F1BC391F1DF25DDF00C4DCCC /* TOMasterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOMasterTableViewController.m; sourceTree = "<group>"; };
+		F1BC39241DF26D0900C4DCCC /* TORoundedTableBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TORoundedTableBackgroundView.h; path = TORoundedTableView/TORoundedTableBackgroundView.h; sourceTree = "<group>"; };
+		F1BC39251DF26D0900C4DCCC /* TORoundedTableBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TORoundedTableBackgroundView.m; path = TORoundedTableView/TORoundedTableBackgroundView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,8 +73,10 @@
 			children = (
 				22576FBE1DEE997E0001586A /* TOAppDelegate.h */,
 				22576FBF1DEE997E0001586A /* TOAppDelegate.m */,
-				22576FC11DEE997E0001586A /* TOTableViewController.h */,
-				22576FC21DEE997E0001586A /* TOTableViewController.m */,
+				22576FC11DEE997E0001586A /* TODetailTableViewController.h */,
+				22576FC21DEE997E0001586A /* TODetailTableViewController.m */,
+				F1BC391E1DF25DDF00C4DCCC /* TOMasterTableViewController.h */,
+				F1BC391F1DF25DDF00C4DCCC /* TOMasterTableViewController.m */,
 				22576FC41DEE997E0001586A /* Main.storyboard */,
 				22576FC71DEE997E0001586A /* Assets.xcassets */,
 				22576FC91DEE997E0001586A /* LaunchScreen.storyboard */,
@@ -93,6 +101,8 @@
 				22576FD41DEE9D2D0001586A /* TORoundedTableView.m */,
 				F11D88031DEFB9410026DDCC /* TORoundedTableViewCell.h */,
 				F11D88041DEFB9410026DDCC /* TORoundedTableViewCell.m */,
+				F1BC39241DF26D0900C4DCCC /* TORoundedTableBackgroundView.h */,
+				F1BC39251DF26D0900C4DCCC /* TORoundedTableBackgroundView.m */,
 			);
 			name = TORoundedTableView;
 			sourceTree = "<group>";
@@ -187,9 +197,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22576FC31DEE997E0001586A /* TOTableViewController.m in Sources */,
+				22576FC31DEE997E0001586A /* TODetailTableViewController.m in Sources */,
 				22576FC01DEE997E0001586A /* TOAppDelegate.m in Sources */,
+				F1BC39201DF25DDF00C4DCCC /* TOMasterTableViewController.m in Sources */,
 				22576FD51DEE9D2D0001586A /* TORoundedTableView.m in Sources */,
+				F1BC39261DF26D0900C4DCCC /* TORoundedTableBackgroundView.m in Sources */,
 				22576FBD1DEE997E0001586A /* main.m in Sources */,
 				F11D88051DEFB9410026DDCC /* TORoundedTableViewCell.m in Sources */,
 			);
@@ -319,11 +331,7 @@
 				INFOPLIST_FILE = TORoundedTableViewExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-weak_framework",
-					RevealServer,
-				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = co.timoliver.TORoundedTableViewExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

@@ -87,7 +87,8 @@
 - (void)setUp
 {
     _sectionCornerRadius = 8.0f;
-    _horizontalInset = 10.0f;
+    _horizontalInset = 22.0f;
+    _maximumWidth = 675.0f;
 }
 
 - (void)loadBackgroundImages
@@ -143,8 +144,6 @@
 #pragma mark - Cell Configuration -
 - (void)configureStyleForCell:(TORoundedTableViewCell *)cell firstInSection:(BOOL)first lastInSection:(BOOL)last
 {
-    cell.tableView = self;
-
     UIImage *image = nil;
     
     if (first && last) { image = self.topAndBottomBackgroundImage; }
@@ -164,8 +163,9 @@
     CGFloat columnWidth = [self widthForCurrentSizeClass];
     
     // Loop through every subview related to 'UITableView' and resize it
+    Class imageViewClass = [UIImageView class];
     for (UIView *subview in self.subviews) {
-        if (![subview isKindOfClass:[UIImageView class]]) { // Resize everything but the scroll indicators
+        if (![subview isKindOfClass:imageViewClass]) { // Resize everything but the scroll indicators
             [self resizeView:subview forColumnWidth:columnWidth centered:YES];
         }
     }

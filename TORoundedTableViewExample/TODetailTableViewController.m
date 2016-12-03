@@ -6,16 +6,16 @@
 //  Copyright © 2016 Tim Oliver. All rights reserved.
 //
 
-#import "TOTableViewController.h"
+#import "TODetailTableViewController.h"
 
 #import "TORoundedTableView.h"
 #import "TORoundedTableViewCell.h"
 
-@interface TOTableViewController ()
+@interface TODetailTableViewController ()
 
 @end
 
-@implementation TOTableViewController
+@implementation TODetailTableViewController
 
 - (void)viewDidLoad
 {
@@ -39,33 +39,20 @@
 
 - (UITableViewCell *)tableView:(TORoundedTableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *topIdentifier = @"TopCell";
-    static NSString *middleIdentifier = @"MidCell";
-    static NSString *bottomIdentifier = @"BottomCell";
+    static NSString *cellIdentifier = @"Cell";
     
     BOOL isTop = (indexPath.row == 0);
     BOOL isBottom = (indexPath.row == 9);
     
-    NSString *identifier = nil;
-    if (isTop) {
-        identifier = topIdentifier;
-    }
-    else if (isBottom) {
-        identifier = bottomIdentifier;
-    }
-    else {
-        identifier = middleIdentifier;
-    }
-    
-    TORoundedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    UITableViewCell *cell = nil;
+
+    cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
-        cell = [[TORoundedTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
-        [tableView configureStyleForCell:cell firstInSection:isTop lastInSection:isBottom];
+        cell = [[TORoundedTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     cell.textLabel.text = [NSString stringWithFormat:@"Cell %ld", indexPath.row+1];
-    cell.detailTextLabel.text = @"Subtitle";
     
     return cell;
 }

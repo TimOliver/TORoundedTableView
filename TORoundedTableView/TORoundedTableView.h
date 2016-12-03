@@ -21,6 +21,4 @@
 /** The corner radius of each section */
 @property (nonatomic, assign) CGFloat sectionCornerRadius;
 
-- (void)configureStyleForCell:(TORoundedTableViewCell *)cell firstInSection:(BOOL)first lastInSection:(BOOL)last;
-
 @end

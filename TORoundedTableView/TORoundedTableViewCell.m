@@ -63,29 +63,45 @@
 {
     self.backgroundColor = [UIColor whiteColor];
     _selectedBackgroundColor = TOROUNDEDTABLEVIEW_DEFAULT_SELECTED_COLOR;
-    
-    // Set up the background views as image views
-    [self setUpBackgroundViews];
+
 }
 
-- (void)setUpBackgroundViews
+//- (void)setUpBackgroundViews
+//{
+//    Class class = [UIImageView class];
+//    if ([self.backgroundView isKindOfClass:class] && [self.selectedBackgroundView isKindOfClass:class]) {
+//        return;
+//    }
+//    
+//    // Configure the default background view
+//    self.backgroundView = [[UIImageView alloc] initWithImage:nil];
+//    self.backgroundView.layer.magnificationFilter = kCAFilterNearest;
+//    self.backgroundView.tintColor = [UIColor whiteColor];
+//    self.backgroundView.hidden = YES;
+//    
+//    // Configure the 'tapped' background view
+//    self.selectedBackgroundView = [[UIImageView alloc] initWithImage:nil];
+//    self.selectedBackgroundView.layer.magnificationFilter = kCAFilterNearest;
+//    self.selectedBackgroundView.tintColor = self.selectedBackgroundColor;
+//    self.selectedBackgroundView.backgroundColor = self.selectedBackgroundColor;
+//}
+
+- (void)didMoveToSuperview
 {
-    Class class = [UIImageView class];
-    if ([self.backgroundView isKindOfClass:class] && [self.selectedBackgroundView isKindOfClass:class]) {
+    [super didMoveToSuperview];
+    
+    if (self.superview == nil || self.tableView) {
         return;
     }
     
-    // Configure the default background view
-    self.backgroundView = [[UIImageView alloc] initWithImage:nil];
-    self.backgroundView.layer.magnificationFilter = kCAFilterNearest;
-    self.backgroundView.tintColor = [UIColor whiteColor];
-    self.backgroundView.hidden = YES;
-    
-    // Configure the 'tapped' background view
-    self.selectedBackgroundView = [[UIImageView alloc] initWithImage:nil];
-    self.selectedBackgroundView.layer.magnificationFilter = kCAFilterNearest;
-    self.selectedBackgroundView.tintColor = self.selectedBackgroundColor;
-    self.selectedBackgroundView.backgroundColor = self.selectedBackgroundColor;
+    // Work out our parent table view
+    UIView *superview = self.superview;
+    do {
+        if ([superview isKindOfClass:[UITableView class]]) {
+            self.tableView = (UITableView *)superview;
+            break;
+        }
+    } while ((superview = superview.superview));
 }
 
 #pragma mark - Update Image State -
@@ -131,24 +147,24 @@
 {
     [super layoutSubviews];
     
-    if (!self.backgroundView.hidden) {
-        CGRect backgroundViewFrame = self.backgroundView.frame;
-        backgroundViewFrame = self.bounds;
-        backgroundViewFrame.size.height += 1.0f;
-        self.backgroundView.frame = backgroundViewFrame;
-    }
-    
-    // Search for any section exterior separator views that were added and hide them
-    for (UIView *view in self.subviews) {
-        if (!(NSStringFromClass(view.class).hash == 1141955748541228649U)) { continue; } //_UITableViewCellSeparatorView
-
-        CGRect frame = view.frame;
-        if (frame.origin.x > FLT_EPSILON)             { continue; } // Doesn't start at the very edge
-        if (frame.size.height > 1.0f + FLT_EPSILON)   { continue; } // View is thicker than a hairline
-        
-        self.exteriorSeparatorView = view;
-        view.backgroundColor = [UIColor clearColor];
-    }
+//    if (!self.backgroundView.hidden) {
+//        CGRect backgroundViewFrame = self.backgroundView.frame;
+//        backgroundViewFrame = self.bounds;
+//        backgroundViewFrame.size.height += 1.0f;
+//        self.backgroundView.frame = backgroundViewFrame;
+//    }
+//    
+//    // Search for any section exterior separator views that were added and hide them
+//    for (UIView *view in self.subviews) {
+//        if (!(NSStringFromClass(view.class).hash == 1141955748541228649U)) { continue; } //_UITableViewCellSeparatorView
+//
+//        CGRect frame = view.frame;
+//        if (frame.origin.x > FLT_EPSILON)             { continue; } // Doesn't start at the very edge
+//        if (frame.size.height > 1.0f + FLT_EPSILON)   { continue; } // View is thicker than a hairline
+//        
+//        self.exteriorSeparatorView = view;
+//        view.backgroundColor = [UIColor clearColor];
+//    }
 }
 
 @end

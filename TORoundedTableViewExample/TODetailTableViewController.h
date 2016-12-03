@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TOTableViewController : UITableViewController
+@interface TODetailTableViewController : UITableViewController
 
 
 @end
