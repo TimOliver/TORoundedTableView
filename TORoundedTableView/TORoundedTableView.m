@@ -151,9 +151,8 @@
     CGFloat columnWidth = [self widthForCurrentSizeClass];
     
     // Loop through every subview related to 'UITableView' and resize it
-    Class imageViewClass = [UIImageView class];
     for (UIView *subview in self.subviews) {
-        if (![subview isKindOfClass:imageViewClass]) { // Resize everything but the scroll indicators
+        if (subview.frame.size.width > self.frame.size.width - FLT_EPSILON) { // Resize everything but the scroll indicators
             [self resizeView:subview forColumnWidth:columnWidth centered:YES];
         }
     }

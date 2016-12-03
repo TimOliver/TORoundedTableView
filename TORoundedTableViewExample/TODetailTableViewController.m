@@ -35,7 +35,12 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return [NSString stringWithFormat:@"Section %ld", section];
+    return [NSString stringWithFormat:@"Section %ld", (long)section];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+{
+    return [NSString stringWithFormat:@"This is the footer for section %ld", (long)section];
 }
 
 - (UITableViewCell *)tableView:(TORoundedTableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
