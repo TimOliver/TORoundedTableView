@@ -111,7 +111,7 @@ Carthage support isn't offered at this time. Please feel free to file a PR. :)
 
 ### `TORoundedTableView`
 
-A very basic subclass wrapper for `UITableView` that overrides the original 'edge-to-edge' philosophy by manually re-laying out all of the content views in a more narrow column. It also creates and manages the rounded corner image assets, so it can be efficiently shared amongst all cells.
+A very basic subclass wrapper for `UITableView` that overrides the original 'edge-to-edge' philosophy by manually re-laying out all of the content views in a more narrow column. It also creates and manages the rounded corner image assets, so they can be efficiently shared amongst all cells.
 
 ### `TORoundedTableViewCell`
 
