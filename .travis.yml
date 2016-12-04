@@ -1,0 +1,5 @@
+language: objective-c
+osx_image: xcode8
+xcode_project: TORoundedTableViewExample.xcodeproj
+xcode_scheme: TORoundedTableViewExampleTests
+script: xcodebuild -verbose -scheme TORoundedTableViewExampleTests -sdk iphonesimulator -destination "name=iPhone SE" test
