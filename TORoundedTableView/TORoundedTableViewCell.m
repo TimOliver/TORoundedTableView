@@ -8,20 +8,16 @@
 
 #import "TORoundedTableViewCell.h"
 
-@interface TORoundedTableViewCell ()
-
-@end
-
 @implementation TORoundedTableViewCell
-
-#pragma mark - Layout Overrides -
 
 - (void)setFrame:(CGRect)frame
 {
     // Clamp the width of the view to the width of the wrapper
-    frame.size.width = self.superview.frame.size.width;
+    if (self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassCompact) {
+        frame.size.width = self.superview.frame.size.width;
+    }
+    
     [super setFrame:frame];
 }
-
 
 @end

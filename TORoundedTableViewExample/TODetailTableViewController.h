@@ -10,6 +10,5 @@
 
 @interface TODetailTableViewController : UITableViewController
 
-
 @end
 

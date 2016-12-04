@@ -147,6 +147,10 @@
 {
     [super layoutSubviews];
 
+    if (self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassRegular) {
+        return;
+    }
+
     // Work out the width of the column
     CGFloat columnWidth = [self widthForCurrentSizeClass];
     

@@ -10,10 +10,10 @@
 
 @interface TORoundedTableViewCapCell : TORoundedTableViewCell
 
-/** Shows the rounded edges on the top of the cell. */
+/** Shows the rounded corners on the top of the cell. */
 @property (nonatomic, assign) BOOL topCornersRounded;
 
-/** Shows the rounded edges on the bottom of the cell. */
+/** Shows the rounded corners on the bottom of the cell. */
 @property (nonatomic, assign) BOOL bottomCornersRounded;
 
 @end

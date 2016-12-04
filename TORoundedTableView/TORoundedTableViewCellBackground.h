@@ -10,9 +10,13 @@
 
 @interface TORoundedTableViewCellBackground : UIView
 
-@property (nonatomic, strong) UIImage *roundedCornerImage;
-
+/** Shows the rounded corners on the top of the cell. */
 @property (nonatomic, assign) BOOL topCornersRounded;
+
+/** Shows the rounded corners on the bottom of the cell. */
 @property (nonatomic, assign) BOOL bottomCornersRounded;
+
+/** The circle image used for the rounded corners. */
+@property (nonatomic, strong) UIImage *roundedCornerImage;
 
 @end

@@ -102,6 +102,10 @@
         self.backgroundView.frame = backgroundViewFrame;
     }
     
+    if (self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassRegular) {
+        return;
+    }
+    
     // Hide the exterior separator view
     // Search for any section exterior separator views that were added and hide them
     for (UIView *view in self.subviews) {

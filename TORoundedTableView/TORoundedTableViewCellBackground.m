@@ -84,6 +84,8 @@ typedef NS_ENUM(NSInteger, TORoundedTableViewCellBackgroundCorner) {
 {
     [super layoutSubviews];
     
+    BOOL isCompactSizeClass = (self.superview.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact);
+    
     CABasicAnimation *resizeAnimation = (CABasicAnimation *)[self.layer animationForKey:@"bounds.size"];
     if (resizeAnimation == nil) {
         resizeAnimation = (CABasicAnimation *)[self.layer animationForKey:@"bound"];
@@ -104,7 +106,7 @@ typedef NS_ENUM(NSInteger, TORoundedTableViewCellBackgroundCorner) {
     topRightCornerLayer.hidden = !self.topCornersRounded;
     topLayer.hidden = !self.topCornersRounded;
     
-    if (self.topCornersRounded) {
+    if (self.topCornersRounded && !isCompactSizeClass) {
         frame = (CGRect){CGPointZero, cornerLayerSize};
         [self animateLayer:topLeftCornerLayer forNewFrame:frame fromAnimation:resizeAnimation];
         topLeftCornerLayer.frame = frame;
@@ -124,12 +126,12 @@ typedef NS_ENUM(NSInteger, TORoundedTableViewCellBackgroundCorner) {
     
     // Layout out the middle rect
     frame = self.bounds;
-    if (self.topCornersRounded) {
+    if (self.topCornersRounded && !isCompactSizeClass) {
         frame.origin.y += cornerLayerSize.height;
         frame.size.height -= cornerLayerSize.height;
     }
     
-    if (self.bottomCornersRounded) {
+    if (self.bottomCornersRounded && !isCompactSizeClass) {
         frame.size.height -= cornerLayerSize.height;
     }
     
@@ -145,7 +147,7 @@ typedef NS_ENUM(NSInteger, TORoundedTableViewCellBackgroundCorner) {
     bottomRightCornerLayer.hidden   = !self.bottomCornersRounded;
     bottomLayer.hidden              = !self.bottomCornersRounded;
     
-    if (self.bottomCornersRounded) {
+    if (self.bottomCornersRounded && !isCompactSizeClass) {
         frame = self.bounds;
         frame.origin.y = boundsSize.height - cornerLayerSize.height;
         frame.size = cornerLayerSize;
