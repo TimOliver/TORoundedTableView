@@ -1,2 +1,6 @@
 # TORoundedTableView
-A subclass of UITableView that styles it similar to the Settings app on iPad
+
+<p align="center">
+<img src="https://github.com/TimOliver/TORoundedTableView/blob/master/screenshot.jpg" style="margin:0 auto" />
+</p>
+
