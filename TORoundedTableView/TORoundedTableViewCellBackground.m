@@ -102,7 +102,7 @@ typedef NS_ENUM(NSInteger, TORoundedTableViewCellBackgroundCorner) {
     
     CABasicAnimation *resizeAnimation = (CABasicAnimation *)[self.layer animationForKey:@"bounds.size"];
     if (resizeAnimation == nil) {
-        resizeAnimation = (CABasicAnimation *)[self.layer animationForKey:@"bound"];
+        resizeAnimation = (CABasicAnimation *)[self.layer animationForKey:@"bounds"];
     }
     
     CGSize boundsSize = self.bounds.size;
