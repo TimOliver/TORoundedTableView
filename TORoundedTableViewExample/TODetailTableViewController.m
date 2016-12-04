@@ -12,17 +12,68 @@
 #import "TORoundedTableViewCell.h"
 #import "TORoundedTableViewCapCell.h"
 
-@interface TODetailTableViewController ()
-
-@end
-
 @implementation TODetailTableViewController
 
-- (void)viewDidLoad
+#pragma mark - Rounded Table Configuration Example -
+
+- (UITableViewCell *)tableView:(TORoundedTableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [super viewDidLoad];
+    /*
+     Because the first and last cells in a section (dubbed the 'cap' cells) do a lot of extra work on account of the rounded corners,
+     for ultimate efficiency, it is recommended to create those ones separately from the ones in the middle of the section.
+    */
+    
+    // Create identifiers for standard cells and the cells that will show the rounded corners
+    static NSString *cellIdentifier     = @"Cell";
+    static NSString *capCellIdentifier  = @"CapCell";
+    
+    // Work out if this cell needs the top or bottom corners rounded (Or if the section only has 1 row, both!)
+    BOOL isTop = (indexPath.row == 0);
+    BOOL isBottom = indexPath.row == ([tableView numberOfRowsInSection:indexPath.section] - 1);
+    
+    // Create a common table cell instance we can configure
+    UITableViewCell *cell = nil;
+    
+    // If it's a non-cap cell, dequeue one with the regular identifier
+    if (!isTop && !isBottom) {
+        TORoundedTableViewCell *normalCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (normalCell == nil) {
+            normalCell = [[TORoundedTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+        }
+        
+        cell = normalCell;
+    }
+    else {
+        // If the cell is indeed one that needs rounded corners, dequeue from the pool of cap cells
+        TORoundedTableViewCapCell *capCell = [tableView dequeueReusableCellWithIdentifier:capCellIdentifier];
+        if (capCell == nil) {
+            capCell = [[TORoundedTableViewCapCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:capCellIdentifier];
+        }
+        
+        // Configure the cell to set the appropriate corners as rounded
+        capCell.topCornersRounded = isTop;
+        capCell.bottomCornersRounded = isBottom;
+        cell = capCell;
+    }
+
+    // Configure the cell's label
+    cell.textLabel.text = [NSString stringWithFormat:@"Cell %ld", indexPath.row+1];
+    
+    // Since we know the background is white, set the label's background to also be white for performance optimizations
+    cell.textLabel.backgroundColor = [UIColor whiteColor];
+    cell.textLabel.opaque = YES;
+    
+    // Return the cell
+    return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //Play the deselection animation
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark - General Table View Configuration -
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 5;
@@ -41,48 +92,6 @@
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
     return [NSString stringWithFormat:@"This is the footer for section %ld", (long)section];
-}
-
-- (UITableViewCell *)tableView:(TORoundedTableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *cellIdentifier = @"Cell";
-    static NSString *capCellIdentifier = @"CapCell";
-    
-    BOOL isTop = (indexPath.row == 0);
-    BOOL isBottom = indexPath.row == ([tableView numberOfRowsInSection:indexPath.section] - 1);
-    
-    UITableViewCell *cell = nil;
-
-    if (!isTop && !isBottom) {
-        TORoundedTableViewCell *normalCell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        if (normalCell == nil) {
-            normalCell = [[TORoundedTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
-        }
-        
-        cell = normalCell;
-    }
-    else {
-        TORoundedTableViewCapCell *capCell = [tableView dequeueReusableCellWithIdentifier:capCellIdentifier];
-        if (capCell == nil) {
-            capCell = [[TORoundedTableViewCapCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:capCellIdentifier];
-        }
-        
-        capCell.topCornersRounded = isTop;
-        capCell.bottomCornersRounded = isBottom;
-        cell = capCell;
-    }
-
-    cell.textLabel.text = [NSString stringWithFormat:@"Cell %ld", indexPath.row+1];
-    cell.textLabel.backgroundColor = [UIColor whiteColor];
-    cell.textLabel.opaque = YES;
-    
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
 }
 
 @end
