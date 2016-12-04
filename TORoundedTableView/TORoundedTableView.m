@@ -87,7 +87,7 @@
 
 - (void)setUp
 {
-    _sectionCornerRadius = 8.0f;
+    _sectionCornerRadius = 5.0f;
     _horizontalInset = 22.0f;
     _maximumWidth = 675.0f;
     _cellBackgroundColor = [UIColor whiteColor];
