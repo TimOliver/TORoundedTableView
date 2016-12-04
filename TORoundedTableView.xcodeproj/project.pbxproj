@@ -471,6 +471,7 @@
 				22B6D0701DF404A7003C2C21 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
