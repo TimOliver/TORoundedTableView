@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Root View Controller-->
+        <!--Detail View Controller-->
         <scene sceneID="Yu0-kx-UGh">
             <objects>
                 <tableViewController storyboardIdentifier="detailtableViewController" id="1DQ-1U-5SW" customClass="TODetailTableViewController" sceneMemberID="viewController">
@@ -22,13 +22,13 @@
                             <outlet property="delegate" destination="1DQ-1U-5SW" id="psE-Ng-qu9"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="Jt8-MY-WWm"/>
+                    <navigationItem key="navigationItem" title="Detail View Controller" id="Jt8-MY-WWm"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eMc-Kt-VRE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-938" y="-27"/>
         </scene>
-        <!--Root View Controller-->
+        <!--Master View Controller-->
         <scene sceneID="3En-dQ-gDi">
             <objects>
                 <tableViewController clearsSelectionOnViewWillAppear="NO" id="KEr-oe-Oh3" customClass="TOMasterTableViewController" sceneMemberID="viewController">
@@ -41,7 +41,7 @@
                             <outlet property="delegate" destination="KEr-oe-Oh3" id="pGh-HV-Aku"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="RAV-8P-NdS"/>
+                    <navigationItem key="navigationItem" title="Master View Controller" id="RAV-8P-NdS"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OUf-e3-kQl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
