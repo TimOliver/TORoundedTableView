@@ -98,7 +98,7 @@ To manually install this library in your app, simply [download a copy of this re
 To integrate `TORoundedTableView`, simply add the following to your podfile:
 
 ```
-pod 'TOSearchBar'
+pod 'TORoundedTableView'
 ```
 
 ## Carthage
