@@ -106,6 +106,13 @@
     _maximumWidth = 675.0f;
     _cellBackgroundColor = [UIColor whiteColor];
     _cellSelectedBackgroundColor = TOROUNDEDTABLEVIEW_SELECTED_BACKGROUND_COLOR;
+    
+    // On iOS 9 and up, table views will automatically drastically indent the cell
+    // content so it won't look too strange on big screens such as iPad Pro. Since we're
+    // manually controlling the content insets, we don't need this.
+    if ([self respondsToSelector:NSSelectorFromString(@"setCellLayoutMarginsFollowReadableWidth:")]) {
+        self.cellLayoutMarginsFollowReadableWidth = NO;
+    }
 }
 
 - (void)loadCornerImages

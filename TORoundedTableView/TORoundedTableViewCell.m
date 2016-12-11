@@ -27,7 +27,7 @@
 - (void)setFrame:(CGRect)frame
 {
     // Clamp the width of the view to the width of the wrapper
-    if (self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassCompact) {
+    if (self.superview && self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassCompact) {
         frame.size.width = self.superview.frame.size.width;
     }
     
