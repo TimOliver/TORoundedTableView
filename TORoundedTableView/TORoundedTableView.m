@@ -183,6 +183,20 @@
     }
 }
 
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
+{
+    [super traitCollectionDidChange:previousTraitCollection];
+    
+    // Annoying hack. While other views automatically resize/reposition when adjusting between size classes,
+    // the table footer view doesn't move back to its origin of 0.0
+    // This forcibly resets the position of the footer view
+    if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact && self.tableFooterView) {
+        CGRect frame = self.tableFooterView.frame;
+        frame.origin.x = 0.0f;
+        self.tableFooterView.frame = frame;
+    }
+}
+
 #pragma mark - Accessor Overrides -
 
 - (void)setSectionCornerRadius:(CGFloat)sectionCornerRadius
