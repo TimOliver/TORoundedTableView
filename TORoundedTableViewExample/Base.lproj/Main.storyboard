@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11760" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="9ug-5q-dwG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12117" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="9ug-5q-dwG">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11755"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12084"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -66,7 +66,7 @@
         <!--Split View Controller-->
         <scene sceneID="1ha-f8-WKh">
             <objects>
-                <splitViewController id="9ug-5q-dwG" sceneMemberID="viewController">
+                <splitViewController id="9ug-5q-dwG" customClass="SplitViewController" sceneMemberID="viewController">
                     <connections>
                         <segue destination="03f-Vg-9tj" kind="relationship" relationship="masterViewController" id="hMh-iC-e32"/>
                         <segue destination="wRv-zz-gYs" kind="relationship" relationship="detailViewController" id="K8r-rD-4qC"/>
