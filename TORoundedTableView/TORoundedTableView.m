@@ -106,6 +106,7 @@
     _maximumWidth = 675.0f;
     _cellBackgroundColor = [UIColor whiteColor];
     _cellSelectedBackgroundColor = TOROUNDEDTABLEVIEW_SELECTED_BACKGROUND_COLOR;
+    _accessoryHorizontalInset = MAXFLOAT;
     
     // On iOS 9 and up, table views will automatically drastically indent the cell
     // content so it won't look too strange on big screens such as iPad Pro. Since we're
@@ -137,6 +138,7 @@
     }
     
     [self loadCornerImages];
+    [self layoutSubviews];
 }
 
 #pragma mark - Content Resizing / Layout -
@@ -151,6 +153,28 @@
     }
 
     return width;
+}
+
+- (void)resizeAccessoryView:(UITableViewHeaderFooterView *)view forColumnWidth:(CGFloat)columnWidth centered:(BOOL)centered
+{
+    // Resize to the same base width as the main cells
+    [self resizeView:view forColumnWidth:columnWidth centered:centered];
+
+    // Work out which inset to apply
+    CGFloat inset = self.separatorInset.left;
+    if (self.accessoryHorizontalInset < MAXFLOAT - FLT_EPSILON) {
+        inset = self.accessoryHorizontalInset;
+    }
+
+    // Inset the text label
+    CGRect frame = view.textLabel.frame;
+    frame.origin.x = inset;
+    view.textLabel.frame = frame;
+
+    // Inset the detail text label
+    frame = view.detailTextLabel.frame;
+    frame.origin.x = inset;
+    view.detailTextLabel.frame = frame;
 }
 
 - (void)resizeView:(UIView *)view forColumnWidth:(CGFloat)columnWidth centered:(BOOL)centered
@@ -173,11 +197,29 @@
     }
 
     // Work out the width of the column
-    CGFloat columnWidth = [self widthForCurrentSizeClass];
-    
     // Loop through every subview related to 'UITableView' and resize it
+    CGFloat columnWidth = [self widthForCurrentSizeClass];
     for (UIView *subview in self.subviews) {
-        if (subview.frame.size.width > self.frame.size.width - FLT_EPSILON) { // Resize everything but the scroll indicators
+        if ([subview isKindOfClass:[UITableViewHeaderFooterView class]])
+        { // Resize the accessory view
+            [self resizeAccessoryView:(UITableViewHeaderFooterView *)subview forColumnWidth:columnWidth centered:YES];
+        }
+    }
+}
+
+- (void)didAddSubview:(UIView *)subview
+{
+    [super didAddSubview:subview];
+
+    // Work out the width of the column
+    // Loop through every subview related to 'UITableView' and resize it
+    CGFloat columnWidth = [self widthForCurrentSizeClass];
+    for (UIView *subview in self.subviews) {
+        // Skip anything that looks like a scroll indicator
+        if (subview.frame.size.width < self.frame.size.width - FLT_EPSILON) { continue; }
+
+        // Resize all non-accessory views
+        if (![subview isKindOfClass:[UITableViewHeaderFooterView class]]) {
             [self resizeView:subview forColumnWidth:columnWidth centered:YES];
         }
     }
