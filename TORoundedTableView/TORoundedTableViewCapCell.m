@@ -110,7 +110,7 @@
     // the table background pokes through. Extend this cell by an extra point to explicitly
     // cover that gap
     if (self.topCornersRounded && !self.bottomCornersRounded) {
-        CGRect backgroundViewFrame = self.backgroundView.frame;
+        CGRect backgroundViewFrame = CGRectZero;
         backgroundViewFrame = self.bounds;
         backgroundViewFrame.size.height += 1.0f;
         self.backgroundView.frame = backgroundViewFrame;
