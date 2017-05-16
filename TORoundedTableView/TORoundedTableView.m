@@ -49,9 +49,6 @@ static inline void TORoundedTableViewResizeView(UIView *view, TORoundedTableView
 static inline void TORoundedTableViewResizeAccessoryView(UITableViewHeaderFooterView *view, TORoundedTableView *tableView,
                                                          CGFloat columnWidth, CGFloat inset, BOOL centered)
 {
-    // Resize to the same base width as the main cells
-    TORoundedTableViewResizeView(view, tableView, columnWidth, centered);
-
     // Work out which inset to apply
     CGFloat horizontalInset = tableView.separatorInset.left;
     if (inset < MAXFLOAT - FLT_EPSILON) {
@@ -199,17 +196,16 @@ static inline void TORoundedTableViewResizeAccessoryView(UITableViewHeaderFooter
     // This unfortunately needs to be done on every animation frame of the table view
     // to ensure the default behaviour doesn't revert.
     CGFloat columnWidth = [self widthForCurrentSizeClass];
+    Class accessoryViewClass = [UITableViewHeaderFooterView class];
     for (UIView *subview in self.subviews) {
         if (subview.frame.size.width < self.frame.size.width - FLT_EPSILON) { continue; } // Skip anything that looks like a scroll indicator
 
-        if ([subview isKindOfClass:[UITableViewHeaderFooterView class]])
-        { // Resize the accessory view
-            TORoundedTableViewResizeAccessoryView((UITableViewHeaderFooterView *)subview, self, columnWidth, self.accessoryHorizontalInset, YES);
-        }
+        // Resize the view
+        TORoundedTableViewResizeView(subview, self, columnWidth, YES);
 
-        // Resize all non-accessory views
-        if (![subview isKindOfClass:[UITableViewHeaderFooterView class]]) {
-            TORoundedTableViewResizeView(subview, self, columnWidth, YES);
+        // Re-align the accessory view
+        if ([subview isKindOfClass:accessoryViewClass]) {
+            TORoundedTableViewResizeAccessoryView((UITableViewHeaderFooterView *)subview, self, columnWidth, self.accessoryHorizontalInset, YES);
         }
     }
 }
