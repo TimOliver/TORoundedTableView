@@ -116,9 +116,9 @@ typedef NS_ENUM(NSInteger, TORoundedTableViewCellBackgroundCorner) {
     CALayer *topRightCornerLayer = self.cornerLayers[TORoundedTableViewCellBackgroundCornerTopRight];
     CALayer *topLayer = self.layers[TORoundedTableViewCellBackgroundViewTop];
     
-    topLeftCornerLayer.hidden = !self.topCornersRounded;
-    topRightCornerLayer.hidden = !self.topCornersRounded;
-    topLayer.hidden = !self.topCornersRounded;
+    topLeftCornerLayer.hidden  = !self.topCornersRounded || isCompactSizeClass;
+    topRightCornerLayer.hidden = !self.topCornersRounded || isCompactSizeClass;
+    topLayer.hidden            = !self.topCornersRounded || isCompactSizeClass;
     
     if (self.topCornersRounded && !isCompactSizeClass) {
         frame = (CGRect){CGPointZero, cornerLayerSize};
@@ -157,9 +157,9 @@ typedef NS_ENUM(NSInteger, TORoundedTableViewCellBackgroundCorner) {
     CALayer *bottomRightCornerLayer = self.cornerLayers[TORoundedTableViewCellBackgroundCornerBottomRight];
     CALayer *bottomLayer            = self.layers[TORoundedTableViewCellBackgroundViewBottom];
     
-    bottomLeftCornerLayer.hidden    = !self.bottomCornersRounded;
-    bottomRightCornerLayer.hidden   = !self.bottomCornersRounded;
-    bottomLayer.hidden              = !self.bottomCornersRounded;
+    bottomLeftCornerLayer.hidden    = !self.bottomCornersRounded || isCompactSizeClass;
+    bottomRightCornerLayer.hidden   = !self.bottomCornersRounded || isCompactSizeClass;
+    bottomLayer.hidden              = !self.bottomCornersRounded || isCompactSizeClass;
     
     if (self.bottomCornersRounded && !isCompactSizeClass) {
         frame = self.bounds;
