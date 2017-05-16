@@ -25,10 +25,49 @@
 
 #define TOROUNDEDTABLEVIEW_SELECTED_BACKGROUND_COLOR [UIColor colorWithWhite:0.85f alpha:1.0f]
 
+// -------------------------------------------------------
+
 // Private declaration of internal cell properties
 @interface TORoundedTableViewCell ()
 - (void)setBackgroundImage:(UIImage *)image;
 @end
+
+// -------------------------------------------------------
+// These functions handle resizing the subviews to fit centered horizontally when presented in regular mode.
+// Because they are in a for-loop that is iterated once per animation frame, they've been made inline functions
+// in an attempt to minimize as much of the Objective-C overhead as possible.
+
+static inline void TORoundedTableViewResizeView(UIView *view, TORoundedTableView *tableView, CGFloat columnWidth, BOOL centered)
+{
+    CGRect frame = view.frame;
+    if (frame.size.width < columnWidth + FLT_EPSILON) { return; }
+    frame.size.width = columnWidth;
+    if (centered) { frame.origin.x = (tableView.frame.size.width - columnWidth) * 0.5f; }
+    view.frame = frame;
+}
+
+static inline void TORoundedTableViewResizeAccessoryView(UITableViewHeaderFooterView *view, TORoundedTableView *tableView,
+                                                         CGFloat columnWidth, CGFloat inset, BOOL centered)
+{
+    // Resize to the same base width as the main cells
+    TORoundedTableViewResizeView(view, tableView, columnWidth, centered);
+
+    // Work out which inset to apply
+    CGFloat horizontalInset = tableView.separatorInset.left;
+    if (inset < MAXFLOAT - FLT_EPSILON) {
+        horizontalInset = inset;
+    }
+
+    // Inset the text label
+    CGRect frame = view.textLabel.frame;
+    frame.origin.x = inset;
+    view.textLabel.frame = frame;
+
+    // Inset the detail text label
+    frame = view.detailTextLabel.frame;
+    frame.origin.x = inset;
+    view.detailTextLabel.frame = frame;
+}
 
 // -------------------------------------------------------
 
@@ -37,20 +76,9 @@
 @property (nonatomic, strong) UIImage *roundedCornerImage;
 @property (nonatomic, strong) UIImage *selectedRoundedCornerImage;
 
-// View Lifecyle
-- (void)setUp;
-- (void)loadCornerImages;
-
-// Size Caluclations
-- (CGFloat)widthForCurrentSizeClass;
-
-// View resizing
-- (void)resizeView:(UIView *)view forColumnWidth:(CGFloat)width centered:(BOOL)centered;
-
-// Image Generation
-+ (UIImage *)roundedCornerImageWithRadius:(CGFloat)radius color:(UIColor *)color;
-
 @end
+
+// -------------------------------------------------------
 
 @implementation TORoundedTableView
 
@@ -155,37 +183,6 @@
     return width;
 }
 
-- (void)resizeAccessoryView:(UITableViewHeaderFooterView *)view forColumnWidth:(CGFloat)columnWidth centered:(BOOL)centered
-{
-    // Resize to the same base width as the main cells
-    [self resizeView:view forColumnWidth:columnWidth centered:centered];
-
-    // Work out which inset to apply
-    CGFloat inset = self.separatorInset.left;
-    if (self.accessoryHorizontalInset < MAXFLOAT - FLT_EPSILON) {
-        inset = self.accessoryHorizontalInset;
-    }
-
-    // Inset the text label
-    CGRect frame = view.textLabel.frame;
-    frame.origin.x = inset;
-    view.textLabel.frame = frame;
-
-    // Inset the detail text label
-    frame = view.detailTextLabel.frame;
-    frame.origin.x = inset;
-    view.detailTextLabel.frame = frame;
-}
-
-- (void)resizeView:(UIView *)view forColumnWidth:(CGFloat)columnWidth centered:(BOOL)centered
-{
-    CGRect frame = view.frame;
-    if (frame.size.width < columnWidth + FLT_EPSILON) { return; }
-    frame.size.width = columnWidth;
-    if (centered) { frame.origin.x = (self.frame.size.width - columnWidth) * 0.5f; }
-    view.frame = frame;
-}
-
 #pragma mark - Layout Override -
 
 - (void)layoutSubviews
@@ -198,29 +195,21 @@
 
     // Work out the width of the column
     // Loop through every subview related to 'UITableView' and resize it
+    // ----
+    // This unfortunately needs to be done on every animation frame of the table view
+    // to ensure the default behaviour doesn't revert.
     CGFloat columnWidth = [self widthForCurrentSizeClass];
     for (UIView *subview in self.subviews) {
+        if (subview.frame.size.width < self.frame.size.width - FLT_EPSILON) { continue; } // Skip anything that looks like a scroll indicator
+
         if ([subview isKindOfClass:[UITableViewHeaderFooterView class]])
         { // Resize the accessory view
-            [self resizeAccessoryView:(UITableViewHeaderFooterView *)subview forColumnWidth:columnWidth centered:YES];
+            TORoundedTableViewResizeAccessoryView((UITableViewHeaderFooterView *)subview, self, columnWidth, self.accessoryHorizontalInset, YES);
         }
-    }
-}
-
-- (void)didAddSubview:(UIView *)subview
-{
-    [super didAddSubview:subview];
-
-    // Work out the width of the column
-    // Loop through every subview related to 'UITableView' and resize it
-    CGFloat columnWidth = [self widthForCurrentSizeClass];
-    for (UIView *subview in self.subviews) {
-        // Skip anything that looks like a scroll indicator
-        if (subview.frame.size.width < self.frame.size.width - FLT_EPSILON) { continue; }
 
         // Resize all non-accessory views
         if (![subview isKindOfClass:[UITableViewHeaderFooterView class]]) {
-            [self resizeView:subview forColumnWidth:columnWidth centered:YES];
+            TORoundedTableViewResizeView(subview, self, columnWidth, YES);
         }
     }
 }
