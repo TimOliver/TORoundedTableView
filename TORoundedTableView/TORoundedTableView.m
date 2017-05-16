@@ -60,12 +60,12 @@ static inline void TORoundedTableViewResizeAccessoryView(UITableViewHeaderFooter
 
     // Inset the text label
     CGRect frame = view.textLabel.frame;
-    frame.origin.x = inset;
+    frame.origin.x = horizontalInset;
     view.textLabel.frame = frame;
 
     // Inset the detail text label
     frame = view.detailTextLabel.frame;
-    frame.origin.x = inset;
+    frame.origin.x = horizontalInset;
     view.detailTextLabel.frame = frame;
 }
 
