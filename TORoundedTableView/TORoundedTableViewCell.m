@@ -21,16 +21,29 @@
 //  IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "TORoundedTableViewCell.h"
+#import "TORoundedTableView.h"
+
+static Class _tableViewClass = NULL;
 
 @implementation TORoundedTableViewCell
 
 - (void)setFrame:(CGRect)frame
 {
-    // Clamp the width of the view to the width of the wrapper
-    if (self.superview && self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassCompact) {
+    if (!_tableViewClass) { _tableViewClass = [TORoundedTableView class]; }
+    BOOL horizontalRegular = self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassCompact;
+
+    /** On iOS 10 and down, table cells are kept in `UItableViewWrapperView`,
+     which abstracts away our control of the frame from `TORoundedTableView`.
+     As such, it's necessary to override `setFrame` and force the cell width to match
+     that container view.
+
+     On iOS 11, that is no longer the case. Cells are direct subviews of the table view.
+     As such, this isn't necessary anymore.
+     */
+    if (![self.superview isKindOfClass:_tableViewClass] && horizontalRegular) {
         frame.size.width = self.superview.frame.size.width;
     }
-    
+
     [super setFrame:frame];
 }
 

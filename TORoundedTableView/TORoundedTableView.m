@@ -197,8 +197,9 @@ static inline void TORoundedTableViewResizeAccessoryView(UITableViewHeaderFooter
     // to ensure the default behaviour doesn't revert.
     CGFloat columnWidth = [self widthForCurrentSizeClass];
     Class accessoryViewClass = [UITableViewHeaderFooterView class];
+    Class imageViewClass = [UIImageView class];
     for (UIView *subview in self.subviews) {
-        if (subview.frame.size.width < self.frame.size.width - FLT_EPSILON) { continue; } // Skip anything that looks like a scroll indicator
+        if ([subview isKindOfClass:imageViewClass]) { continue; } // Skip anything that looks like a scroll indicator
 
         // Resize the view
         TORoundedTableViewResizeView(subview, self, columnWidth, YES);
