@@ -328,7 +328,6 @@
 				TargetAttributes = {
 					22576FB71DEE997E0001586A = {
 						CreatedOnToolsVersion = 8.2;
-						DevelopmentTeam = YSHJQA6U2L;
 						ProvisioningStyle = Automatic;
 					};
 					22B6D0671DF404A7003C2C21 = {
@@ -592,7 +591,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = YSHJQA6U2L;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -610,7 +609,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = YSHJQA6U2L;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = TORoundedTableViewExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
