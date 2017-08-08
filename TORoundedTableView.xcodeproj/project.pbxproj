@@ -13,8 +13,6 @@
 		22576FC61DEE997E0001586A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22576FC41DEE997E0001586A /* Main.storyboard */; };
 		22576FC81DEE997E0001586A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22576FC71DEE997E0001586A /* Assets.xcassets */; };
 		22576FCB1DEE997E0001586A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22576FC91DEE997E0001586A /* LaunchScreen.storyboard */; };
-		22576FD51DEE9D2D0001586A /* TORoundedTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22576FD41DEE9D2D0001586A /* TORoundedTableView.m */; };
-		226D38AD1DF29F0A0060598B /* TORoundedTableViewCapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 226D38AC1DF29F0A0060598B /* TORoundedTableViewCapCell.m */; };
 		22B6D06B1DF404A7003C2C21 /* TORoundedTableViewExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B6D06A1DF404A7003C2C21 /* TORoundedTableViewExampleTests.m */; };
 		8B407BE81F3978E30062F1C1 /* TORoundedTableViewFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B407BDF1F3978E30062F1C1 /* TORoundedTableViewFramework.framework */; };
 		8B407BEF1F3978E30062F1C1 /* TORoundedTableView_FrameworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B407BEE1F3978E30062F1C1 /* TORoundedTableView_FrameworkTests.swift */; };
@@ -25,9 +23,7 @@
 		8B407C001F39790E0062F1C1 /* TORoundedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F11D88041DEFB9410026DDCC /* TORoundedTableViewCell.m */; };
 		8B407C021F39790E0062F1C1 /* TORoundedTableViewCapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 226D38AC1DF29F0A0060598B /* TORoundedTableViewCapCell.m */; };
 		8B407C041F39790E0062F1C1 /* TORoundedTableViewCellBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = F1BC39251DF26D0900C4DCCC /* TORoundedTableViewCellBackground.m */; };
-		F11D88051DEFB9410026DDCC /* TORoundedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F11D88041DEFB9410026DDCC /* TORoundedTableViewCell.m */; };
 		F1BC39201DF25DDF00C4DCCC /* TOMasterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F1BC391F1DF25DDF00C4DCCC /* TOMasterTableViewController.m */; };
-		F1BC39261DF26D0900C4DCCC /* TORoundedTableViewCellBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = F1BC39251DF26D0900C4DCCC /* TORoundedTableViewCellBackground.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -332,7 +328,7 @@
 				TargetAttributes = {
 					22576FB71DEE997E0001586A = {
 						CreatedOnToolsVersion = 8.2;
-						DevelopmentTeam = 6LF3GMKZAB;
+						DevelopmentTeam = YSHJQA6U2L;
 						ProvisioningStyle = Automatic;
 					};
 					22B6D0671DF404A7003C2C21 = {
@@ -411,13 +407,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				22576FC31DEE997E0001586A /* TODetailTableViewController.m in Sources */,
-				226D38AD1DF29F0A0060598B /* TORoundedTableViewCapCell.m in Sources */,
 				22576FC01DEE997E0001586A /* TOAppDelegate.m in Sources */,
 				F1BC39201DF25DDF00C4DCCC /* TOMasterTableViewController.m in Sources */,
-				22576FD51DEE9D2D0001586A /* TORoundedTableView.m in Sources */,
-				F1BC39261DF26D0900C4DCCC /* TORoundedTableViewCellBackground.m in Sources */,
 				22576FBD1DEE997E0001586A /* main.m in Sources */,
-				F11D88051DEFB9410026DDCC /* TORoundedTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -600,7 +592,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 6LF3GMKZAB;
+				DEVELOPMENT_TEAM = YSHJQA6U2L;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -618,7 +610,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 6LF3GMKZAB;
+				DEVELOPMENT_TEAM = YSHJQA6U2L;
 				INFOPLIST_FILE = TORoundedTableViewExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
