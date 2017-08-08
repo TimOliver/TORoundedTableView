@@ -16,6 +16,15 @@
 		22576FD51DEE9D2D0001586A /* TORoundedTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22576FD41DEE9D2D0001586A /* TORoundedTableView.m */; };
 		226D38AD1DF29F0A0060598B /* TORoundedTableViewCapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 226D38AC1DF29F0A0060598B /* TORoundedTableViewCapCell.m */; };
 		22B6D06B1DF404A7003C2C21 /* TORoundedTableViewExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B6D06A1DF404A7003C2C21 /* TORoundedTableViewExampleTests.m */; };
+		8B407BE81F3978E30062F1C1 /* TORoundedTableViewFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B407BDF1F3978E30062F1C1 /* TORoundedTableViewFramework.framework */; };
+		8B407BEF1F3978E30062F1C1 /* TORoundedTableView_FrameworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B407BEE1F3978E30062F1C1 /* TORoundedTableView_FrameworkTests.swift */; };
+		8B407BF11F3978E30062F1C1 /* TORoundedTableView_Framework.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B407BE11F3978E30062F1C1 /* TORoundedTableView_Framework.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8B407BF41F3978E30062F1C1 /* TORoundedTableViewFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B407BDF1F3978E30062F1C1 /* TORoundedTableViewFramework.framework */; };
+		8B407BF61F3978E30062F1C1 /* TORoundedTableViewFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8B407BDF1F3978E30062F1C1 /* TORoundedTableViewFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8B407BFE1F39790E0062F1C1 /* TORoundedTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22576FD41DEE9D2D0001586A /* TORoundedTableView.m */; };
+		8B407C001F39790E0062F1C1 /* TORoundedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F11D88041DEFB9410026DDCC /* TORoundedTableViewCell.m */; };
+		8B407C021F39790E0062F1C1 /* TORoundedTableViewCapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 226D38AC1DF29F0A0060598B /* TORoundedTableViewCapCell.m */; };
+		8B407C041F39790E0062F1C1 /* TORoundedTableViewCellBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = F1BC39251DF26D0900C4DCCC /* TORoundedTableViewCellBackground.m */; };
 		F11D88051DEFB9410026DDCC /* TORoundedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F11D88041DEFB9410026DDCC /* TORoundedTableViewCell.m */; };
 		F1BC39201DF25DDF00C4DCCC /* TOMasterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F1BC391F1DF25DDF00C4DCCC /* TOMasterTableViewController.m */; };
 		F1BC39261DF26D0900C4DCCC /* TORoundedTableViewCellBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = F1BC39251DF26D0900C4DCCC /* TORoundedTableViewCellBackground.m */; };
@@ -29,7 +38,42 @@
 			remoteGlobalIDString = 22576FB71DEE997E0001586A;
 			remoteInfo = TORoundedTableViewExample;
 		};
+		8B407BE91F3978E30062F1C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22576FB01DEE997E0001586A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8B407BDE1F3978E30062F1C1;
+			remoteInfo = "TORoundedTableView Framework";
+		};
+		8B407BEB1F3978E30062F1C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22576FB01DEE997E0001586A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 22576FB71DEE997E0001586A;
+			remoteInfo = TORoundedTableViewExample;
+		};
+		8B407BF21F3978E30062F1C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22576FB01DEE997E0001586A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8B407BDE1F3978E30062F1C1;
+			remoteInfo = "TORoundedTableView Framework";
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8B407BF51F3978E30062F1C1 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				8B407BF61F3978E30062F1C1 /* TORoundedTableViewFramework.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		22576FB81DEE997E0001586A /* TORoundedTableViewExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TORoundedTableViewExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,6 +93,12 @@
 		22B6D0681DF404A7003C2C21 /* TORoundedTableViewExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TORoundedTableViewExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		22B6D06A1DF404A7003C2C21 /* TORoundedTableViewExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TORoundedTableViewExampleTests.m; sourceTree = "<group>"; };
 		22B6D06C1DF404A7003C2C21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8B407BDF1F3978E30062F1C1 /* TORoundedTableViewFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TORoundedTableViewFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B407BE11F3978E30062F1C1 /* TORoundedTableView_Framework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TORoundedTableView_Framework.h; sourceTree = "<group>"; };
+		8B407BE21F3978E30062F1C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8B407BE71F3978E30062F1C1 /* TORoundedTableViewFrameworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TORoundedTableViewFrameworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B407BEE1F3978E30062F1C1 /* TORoundedTableView_FrameworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TORoundedTableView_FrameworkTests.swift; sourceTree = "<group>"; };
+		8B407BF01F3978E30062F1C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F11D88031DEFB9410026DDCC /* TORoundedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TORoundedTableViewCell.h; path = TORoundedTableView/TORoundedTableViewCell.h; sourceTree = "<group>"; };
 		F11D88041DEFB9410026DDCC /* TORoundedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TORoundedTableViewCell.m; path = TORoundedTableView/TORoundedTableViewCell.m; sourceTree = "<group>"; };
 		F1BC391E1DF25DDF00C4DCCC /* TOMasterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOMasterTableViewController.h; sourceTree = "<group>"; };
@@ -62,6 +112,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B407BF41F3978E30062F1C1 /* TORoundedTableViewFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,6 +120,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8B407BDB1F3978E30062F1C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8B407BE41F3978E30062F1C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8B407BE81F3978E30062F1C1 /* TORoundedTableViewFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +147,8 @@
 				22576FD21DEE9A120001586A /* TORoundedTableView */,
 				22576FBA1DEE997E0001586A /* TORoundedTableViewExample */,
 				22B6D0691DF404A7003C2C21 /* TORoundedTableViewExampleTests */,
+				8B407BE01F3978E30062F1C1 /* TORoundedTableView Framework */,
+				8B407BED1F3978E30062F1C1 /* TORoundedTableView FrameworkTests */,
 				22576FB91DEE997E0001586A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,6 +158,8 @@
 			children = (
 				22576FB81DEE997E0001586A /* TORoundedTableViewExample.app */,
 				22B6D0681DF404A7003C2C21 /* TORoundedTableViewExampleTests.xctest */,
+				8B407BDF1F3978E30062F1C1 /* TORoundedTableViewFramework.framework */,
+				8B407BE71F3978E30062F1C1 /* TORoundedTableViewFrameworkTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -144,7 +214,36 @@
 			path = TORoundedTableViewExampleTests;
 			sourceTree = "<group>";
 		};
+		8B407BE01F3978E30062F1C1 /* TORoundedTableView Framework */ = {
+			isa = PBXGroup;
+			children = (
+				8B407BE11F3978E30062F1C1 /* TORoundedTableView_Framework.h */,
+				8B407BE21F3978E30062F1C1 /* Info.plist */,
+			);
+			path = "TORoundedTableView Framework";
+			sourceTree = "<group>";
+		};
+		8B407BED1F3978E30062F1C1 /* TORoundedTableView FrameworkTests */ = {
+			isa = PBXGroup;
+			children = (
+				8B407BEE1F3978E30062F1C1 /* TORoundedTableView_FrameworkTests.swift */,
+				8B407BF01F3978E30062F1C1 /* Info.plist */,
+			);
+			path = "TORoundedTableView FrameworkTests";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		8B407BDC1F3978E30062F1C1 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8B407BF11F3978E30062F1C1 /* TORoundedTableView_Framework.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		22576FB71DEE997E0001586A /* TORoundedTableViewExample */ = {
@@ -154,10 +253,12 @@
 				22576FB41DEE997E0001586A /* Sources */,
 				22576FB51DEE997E0001586A /* Frameworks */,
 				22576FB61DEE997E0001586A /* Resources */,
+				8B407BF51F3978E30062F1C1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				8B407BF31F3978E30062F1C1 /* PBXTargetDependency */,
 			);
 			name = TORoundedTableViewExample;
 			productName = TORoundedTableViewExample;
@@ -182,12 +283,50 @@
 			productReference = 22B6D0681DF404A7003C2C21 /* TORoundedTableViewExampleTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		8B407BDE1F3978E30062F1C1 /* TORoundedTableViewFramework */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8B407BF71F3978E30062F1C1 /* Build configuration list for PBXNativeTarget "TORoundedTableViewFramework" */;
+			buildPhases = (
+				8B407BDA1F3978E30062F1C1 /* Sources */,
+				8B407BDB1F3978E30062F1C1 /* Frameworks */,
+				8B407BDC1F3978E30062F1C1 /* Headers */,
+				8B407BDD1F3978E30062F1C1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TORoundedTableViewFramework;
+			productName = "TORoundedTableView Framework";
+			productReference = 8B407BDF1F3978E30062F1C1 /* TORoundedTableViewFramework.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		8B407BE61F3978E30062F1C1 /* TORoundedTableViewFrameworkTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8B407BFA1F3978E30062F1C1 /* Build configuration list for PBXNativeTarget "TORoundedTableViewFrameworkTests" */;
+			buildPhases = (
+				8B407BE31F3978E30062F1C1 /* Sources */,
+				8B407BE41F3978E30062F1C1 /* Frameworks */,
+				8B407BE51F3978E30062F1C1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8B407BEA1F3978E30062F1C1 /* PBXTargetDependency */,
+				8B407BEC1F3978E30062F1C1 /* PBXTargetDependency */,
+			);
+			name = TORoundedTableViewFrameworkTests;
+			productName = "TORoundedTableView FrameworkTests";
+			productReference = 8B407BE71F3978E30062F1C1 /* TORoundedTableViewFrameworkTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		22576FB01DEE997E0001586A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0900;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Tim Oliver";
 				TargetAttributes = {
@@ -200,6 +339,13 @@
 						CreatedOnToolsVersion = 8.2;
 						DevelopmentTeam = 6LF3GMKZAB;
 						ProvisioningStyle = Automatic;
+						TestTargetID = 22576FB71DEE997E0001586A;
+					};
+					8B407BDE1F3978E30062F1C1 = {
+						CreatedOnToolsVersion = 9.0;
+					};
+					8B407BE61F3978E30062F1C1 = {
+						CreatedOnToolsVersion = 9.0;
 						TestTargetID = 22576FB71DEE997E0001586A;
 					};
 				};
@@ -219,6 +365,8 @@
 			targets = (
 				22576FB71DEE997E0001586A /* TORoundedTableViewExample */,
 				22B6D0671DF404A7003C2C21 /* TORoundedTableViewExampleTests */,
+				8B407BDE1F3978E30062F1C1 /* TORoundedTableViewFramework */,
+				8B407BE61F3978E30062F1C1 /* TORoundedTableViewFrameworkTests */,
 			);
 		};
 /* End PBXProject section */
@@ -235,6 +383,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		22B6D0661DF404A7003C2C21 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8B407BDD1F3978E30062F1C1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8B407BE51F3978E30062F1C1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -267,6 +429,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8B407BDA1F3978E30062F1C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8B407BFE1F39790E0062F1C1 /* TORoundedTableView.m in Sources */,
+				8B407C001F39790E0062F1C1 /* TORoundedTableViewCell.m in Sources */,
+				8B407C021F39790E0062F1C1 /* TORoundedTableViewCapCell.m in Sources */,
+				8B407C041F39790E0062F1C1 /* TORoundedTableViewCellBackground.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8B407BE31F3978E30062F1C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8B407BEF1F3978E30062F1C1 /* TORoundedTableView_FrameworkTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -274,6 +455,21 @@
 			isa = PBXTargetDependency;
 			target = 22576FB71DEE997E0001586A /* TORoundedTableViewExample */;
 			targetProxy = 22B6D06D1DF404A7003C2C21 /* PBXContainerItemProxy */;
+		};
+		8B407BEA1F3978E30062F1C1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8B407BDE1F3978E30062F1C1 /* TORoundedTableViewFramework */;
+			targetProxy = 8B407BE91F3978E30062F1C1 /* PBXContainerItemProxy */;
+		};
+		8B407BEC1F3978E30062F1C1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 22576FB71DEE997E0001586A /* TORoundedTableViewExample */;
+			targetProxy = 8B407BEB1F3978E30062F1C1 /* PBXContainerItemProxy */;
+		};
+		8B407BF31F3978E30062F1C1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8B407BDE1F3978E30062F1C1 /* TORoundedTableViewFramework */;
+			targetProxy = 8B407BF21F3978E30062F1C1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -403,6 +599,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 6LF3GMKZAB;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -420,6 +617,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 6LF3GMKZAB;
 				INFOPLIST_FILE = TORoundedTableViewExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -455,6 +653,106 @@
 			};
 			name = Release;
 		};
+		8B407BF81F3978E30062F1C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "TORoundedTableView Framework/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "co.timoliver.TORoundedTableView-Framework";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		8B407BF91F3978E30062F1C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "TORoundedTableView Framework/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "co.timoliver.TORoundedTableView-Framework";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		8B407BFB1F3978E30062F1C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "TORoundedTableView FrameworkTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "co.timoliver.TORoundedTableView-FrameworkTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TORoundedTableViewExample.app/TORoundedTableViewExample";
+			};
+			name = Debug;
+		};
+		8B407BFC1F3978E30062F1C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "TORoundedTableView FrameworkTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "co.timoliver.TORoundedTableView-FrameworkTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TORoundedTableViewExample.app/TORoundedTableViewExample";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -481,6 +779,24 @@
 			buildConfigurations = (
 				22B6D06F1DF404A7003C2C21 /* Debug */,
 				22B6D0701DF404A7003C2C21 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8B407BF71F3978E30062F1C1 /* Build configuration list for PBXNativeTarget "TORoundedTableViewFramework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8B407BF81F3978E30062F1C1 /* Debug */,
+				8B407BF91F3978E30062F1C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8B407BFA1F3978E30062F1C1 /* Build configuration list for PBXNativeTarget "TORoundedTableViewFrameworkTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8B407BFB1F3978E30062F1C1 /* Debug */,
+				8B407BFC1F3978E30062F1C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
