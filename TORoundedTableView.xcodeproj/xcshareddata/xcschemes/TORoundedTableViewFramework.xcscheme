@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "22576FB71DEE997E0001586A"
-               BuildableName = "TORoundedTableViewExample.app"
-               BlueprintName = "TORoundedTableViewExample"
+               BlueprintIdentifier = "8B407BDE1F3978E30062F1C1"
+               BuildableName = "TORoundedTableViewFramework.framework"
+               BlueprintName = "TORoundedTableViewFramework"
                ReferencedContainer = "container:TORoundedTableView.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -29,36 +29,7 @@
       language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "22B6D0671DF404A7003C2C21"
-               BuildableName = "TORoundedTableViewExampleTests.xctest"
-               BlueprintName = "TORoundedTableViewExampleTests"
-               ReferencedContainer = "container:TORoundedTableView.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8B407BE61F3978E30062F1C1"
-               BuildableName = "TORoundedTableViewFrameworkTests.xctest"
-               BlueprintName = "TORoundedTableViewFrameworkTests"
-               ReferencedContainer = "container:TORoundedTableView.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "22576FB71DEE997E0001586A"
-            BuildableName = "TORoundedTableViewExample.app"
-            BlueprintName = "TORoundedTableViewExample"
-            ReferencedContainer = "container:TORoundedTableView.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -73,16 +44,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "22576FB71DEE997E0001586A"
-            BuildableName = "TORoundedTableViewExample.app"
-            BlueprintName = "TORoundedTableViewExample"
+            BlueprintIdentifier = "8B407BDE1F3978E30062F1C1"
+            BuildableName = "TORoundedTableViewFramework.framework"
+            BlueprintName = "TORoundedTableViewFramework"
             ReferencedContainer = "container:TORoundedTableView.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -92,16 +62,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "22576FB71DEE997E0001586A"
-            BuildableName = "TORoundedTableViewExample.app"
-            BlueprintName = "TORoundedTableViewExample"
+            BlueprintIdentifier = "8B407BDE1F3978E30062F1C1"
+            BuildableName = "TORoundedTableViewFramework.framework"
+            BlueprintName = "TORoundedTableViewFramework"
             ReferencedContainer = "container:TORoundedTableView.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

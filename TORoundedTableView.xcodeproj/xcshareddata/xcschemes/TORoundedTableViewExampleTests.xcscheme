@@ -10,6 +10,7 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
@@ -19,6 +20,16 @@
                BlueprintIdentifier = "22B6D0671DF404A7003C2C21"
                BuildableName = "TORoundedTableViewExampleTests.xctest"
                BlueprintName = "TORoundedTableViewExampleTests"
+               ReferencedContainer = "container:TORoundedTableView.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "8B407BE61F3978E30062F1C1"
+               BuildableName = "TORoundedTableViewFrameworkTests.xctest"
+               BlueprintName = "TORoundedTableViewFrameworkTests"
                ReferencedContainer = "container:TORoundedTableView.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -39,6 +50,7 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      language = ""
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
