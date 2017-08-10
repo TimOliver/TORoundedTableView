@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8B407BDE1F3978E30062F1C1"
-               BuildableName = "TORoundedTableViewFramework.framework"
-               BlueprintName = "TORoundedTableViewFramework"
+               BuildableName = "TORoundedTableView.framework"
+               BlueprintName = "TORoundedTableView"
                ReferencedContainer = "container:TORoundedTableView.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -48,8 +48,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8B407BDE1F3978E30062F1C1"
-            BuildableName = "TORoundedTableViewFramework.framework"
-            BlueprintName = "TORoundedTableViewFramework"
+            BuildableName = "TORoundedTableView.framework"
+            BlueprintName = "TORoundedTableView"
             ReferencedContainer = "container:TORoundedTableView.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -66,8 +66,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8B407BDE1F3978E30062F1C1"
-            BuildableName = "TORoundedTableViewFramework.framework"
-            BlueprintName = "TORoundedTableViewFramework"
+            BuildableName = "TORoundedTableView.framework"
+            BlueprintName = "TORoundedTableView"
             ReferencedContainer = "container:TORoundedTableView.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

@@ -44,8 +44,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8B407BE61F3978E30062F1C1"
-               BuildableName = "TORoundedTableViewFrameworkTests.xctest"
-               BlueprintName = "TORoundedTableViewFrameworkTests"
+               BuildableName = "TORoundedTableViewTests.xctest"
+               BlueprintName = "TORoundedTableViewTests"
                ReferencedContainer = "container:TORoundedTableView.xcodeproj">
             </BuildableReference>
          </TestableReference>
