@@ -16,7 +16,7 @@
 		22B6D06B1DF404A7003C2C21 /* TORoundedTableViewExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B6D06A1DF404A7003C2C21 /* TORoundedTableViewExampleTests.m */; };
 		8B407BE81F3978E30062F1C1 /* TORoundedTableView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B407BDF1F3978E30062F1C1 /* TORoundedTableView.framework */; };
 		8B407BEF1F3978E30062F1C1 /* TORoundedTableView_FrameworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B407BEE1F3978E30062F1C1 /* TORoundedTableView_FrameworkTests.swift */; };
-		8B407BF11F3978E30062F1C1 /* TORoundedTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B407BE11F3978E30062F1C1 /* TORoundedTableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8B407BF11F3978E30062F1C1 /* TORoundedTableView Framewwork.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B407BE11F3978E30062F1C1 /* TORoundedTableView Framewwork.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8B407BFE1F39790E0062F1C1 /* TORoundedTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22576FD41DEE9D2D0001586A /* TORoundedTableView.m */; };
 		8B407C001F39790E0062F1C1 /* TORoundedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F11D88041DEFB9410026DDCC /* TORoundedTableViewCell.m */; };
 		8B407C021F39790E0062F1C1 /* TORoundedTableViewCapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 226D38AC1DF29F0A0060598B /* TORoundedTableViewCapCell.m */; };
@@ -90,7 +90,7 @@
 		22B6D06A1DF404A7003C2C21 /* TORoundedTableViewExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TORoundedTableViewExampleTests.m; sourceTree = "<group>"; };
 		22B6D06C1DF404A7003C2C21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B407BDF1F3978E30062F1C1 /* TORoundedTableView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TORoundedTableView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8B407BE11F3978E30062F1C1 /* TORoundedTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TORoundedTableView.h; sourceTree = "<group>"; };
+		8B407BE11F3978E30062F1C1 /* TORoundedTableView Framewwork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TORoundedTableView Framewwork.h"; sourceTree = "<group>"; };
 		8B407BE21F3978E30062F1C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B407BE71F3978E30062F1C1 /* TORoundedTableViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TORoundedTableViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B407BEE1F3978E30062F1C1 /* TORoundedTableView_FrameworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TORoundedTableView_FrameworkTests.swift; sourceTree = "<group>"; };
@@ -213,7 +213,7 @@
 		8B407BE01F3978E30062F1C1 /* TORoundedTableView Framework */ = {
 			isa = PBXGroup;
 			children = (
-				8B407BE11F3978E30062F1C1 /* TORoundedTableView.h */,
+				8B407BE11F3978E30062F1C1 /* TORoundedTableView Framewwork.h */,
 				8B407BE21F3978E30062F1C1 /* Info.plist */,
 			);
 			path = "TORoundedTableView Framework";
@@ -235,7 +235,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B407BF11F3978E30062F1C1 /* TORoundedTableView.h in Headers */,
+				8B407BF11F3978E30062F1C1 /* TORoundedTableView Framewwork.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
