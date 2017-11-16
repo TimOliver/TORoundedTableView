@@ -151,4 +151,4 @@ iPhone 7 Plus device mockup by [Pixeden](http://www.pixeden.com).
 
 # License
 
-`TORoundedTableView` is available under the MIT license. Please see the [LICENSE](LICENSE) file for more information
+`TORoundedTableView` is available under the MIT license. Please see the [LICENSE](LICENSE) file for more information. ![analytics](https://ga-beacon.appspot.com/UA-5643664-16/TORoundedTableView/README.md?pixel)
