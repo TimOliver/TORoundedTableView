@@ -5,6 +5,8 @@
 [![Version](https://img.shields.io/cocoapods/v/TORoundedTableView.svg?style=flat)](http://cocoadocs.org/docsets/TORoundedTableView)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/TimOliver/TORoundedTableView/master/LICENSE)
 [![Platform](https://img.shields.io/cocoapods/p/TORoundedTableView.svg?style=flat)](http://cocoadocs.org/docsets/TORoundedTableView)
+[![Beerpay](https://beerpay.io/TimOliver/TORoundedTableView/badge.svg?style=flat)](https://beerpay.io/TimOliver/TORoundedTableView)
+[![PayPal](https://img.shields.io/badge/paypal-donate-blue.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=M4RKULAVKV7K8)
 
 # TORoundedTableView
 
