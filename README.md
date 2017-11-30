@@ -152,3 +152,8 @@ iPhone 7 Plus device mockup by [Pixeden](http://www.pixeden.com).
 # License
 
 `TORoundedTableView` is available under the MIT license. Please see the [LICENSE](LICENSE) file for more information. ![analytics](https://ga-beacon.appspot.com/UA-5643664-16/TORoundedTableView/README.md?pixel)
+
+## Support on Beerpay
+Hey dude! Help me out for a couple of :beers:!
+
+[![Beerpay](https://beerpay.io/TimOliver/TORoundedTableView/badge.svg?style=beer-square)](https://beerpay.io/TimOliver/TORoundedTableView)  [![Beerpay](https://beerpay.io/TimOliver/TORoundedTableView/make-wish.svg?style=flat-square)](https://beerpay.io/TimOliver/TORoundedTableView?focus=wish)
