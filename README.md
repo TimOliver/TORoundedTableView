@@ -1,3 +1,5 @@
+# TORoundedTableView
+
 ![TORoundedTableView](screenshot.jpg)
 
 [![CI Status](http://img.shields.io/travis/TimOliver/TORoundedTableView.svg?style=flat)](http://api.travis-ci.org/TimOliver/TORoundedTableView.svg)
@@ -8,7 +10,7 @@
 [![Beerpay](https://beerpay.io/TimOliver/TORoundedTableView/badge.svg?style=flat)](https://beerpay.io/TimOliver/TORoundedTableView)
 [![PayPal](https://img.shields.io/badge/paypal-donate-blue.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=M4RKULAVKV7K8)
 
-# TORoundedTableView
+
 
 `TORoundedTableView` is a subclass of the standard UIKit `UITableView` class. Harkening back to the days of iOS 6, it overrides the standard grouped `UITableView` appearence and behaviour to match the borderless, rounded corner style seen in the Settings app on every iPad since iOS 7.
 
