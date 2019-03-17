@@ -154,7 +154,7 @@ In any case, after much perseverance I'm really happy I managed to get it workin
 
 `TORoundedTableView` was created by [Tim Oliver](http://twitter.com/TimOliverAU) as an experiment in insanity of reliably hacking `UITableView`.
 
-iPhone 7 Plus device mockup by [Pixeden](http://www.pixeden.com).
+iPhone XR device mockup by [Pixeden](http://www.pixeden.com).
 
 # License
 
