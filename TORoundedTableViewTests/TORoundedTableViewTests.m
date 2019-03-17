@@ -7,6 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "TORoundedTableView.h"
 
 @interface TORoundedTableViewTests : XCTestCase
 
@@ -14,24 +15,26 @@
 
 @implementation TORoundedTableViewTests
 
-- (void)setUp {
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+- (void)testBasicCreation {
+    UIView *containerView = [[UIView alloc] initWithFrame:(CGRect){0,0,320,480}];
+
+    TORoundedTableView *tableView = [[TORoundedTableView alloc] initWithFrame:containerView.bounds];
+    [containerView addSubview:tableView];
+
+    XCTAssert(tableView != nil);
+    XCTAssert(tableView.superview == containerView);
 }
 
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-}
+- (void)testDefaultValues {
+    // Ensure default properties are correctly set on object creation
+    TORoundedTableView *tableView = [[TORoundedTableView alloc] initWithFrame:CGRectZero];
+    XCTAssertNotNil(tableView);
 
-- (void)testExample {
-    // This is an example of a functional test case.
-    // Use XCTAssert and related functions to verify your tests produce the correct results.
-}
-
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
+    XCTAssertEqual(tableView.horizontalInset, 22.0f);
+    XCTAssertEqual(tableView.accessoryHorizontalInset, MAXFLOAT);
+    XCTAssertEqual(tableView.maximumWidth, 675.0f);
+    XCTAssertEqual(tableView.sectionCornerRadius, 5.0f);
+    XCTAssertEqual(tableView.cellBackgroundColor, [UIColor whiteColor]);
 }
 
 @end
