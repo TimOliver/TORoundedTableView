@@ -142,7 +142,7 @@ lane :push_new_tag do |options|
   commit_sha = options[:commit_sha]
 
   # Now that all of the new tag versions have been pushed, tag the latest commit
-  tag_message = "Release v#{latest_version}"
+  tag_message = "Release v#{tag}"
   tagger = {"name": "XD-CI", email: ENV["AUTHOR_EMAIL"]}
 
   Fastlane::Actions::GithubApiAction.run(
