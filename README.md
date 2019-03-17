@@ -2,21 +2,22 @@
 
 ![TORoundedTableView](screenshot.jpg)
 
-[[![Build Status](https://badge.buildkite.com/0d1fe3756759b3f15809356591f6427503f2cb5310dbd48075.svg)](https://buildkite.com/xd-ci/toroundedtableview-run-ci)
-[![CocoaPods](https://img.shields.io/cocoapods/dt/TORoundedTableView.svg?maxAge=3600)](https://cocoapods.org/pods/TORoundedTableView)
+[[![Build Status](https://badge.buildkite.com/0d1fe3756759b3f15809356591f6427503f2cb5310dbd48075.svg)](https://buildkite.com/xd-ci/toroundedtableview-run-ci)]
 [![Version](https://img.shields.io/cocoapods/v/TORoundedTableView.svg?style=flat)](http://cocoadocs.org/docsets/TORoundedTableView)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/TimOliver/TORoundedTableView/master/LICENSE)
 [![Platform](https://img.shields.io/cocoapods/p/TORoundedTableView.svg?style=flat)](http://cocoadocs.org/docsets/TORoundedTableView)
 [![Beerpay](https://beerpay.io/TimOliver/TORoundedTableView/badge.svg?style=flat)](https://beerpay.io/TimOliver/TORoundedTableView)
 [![PayPal](https://img.shields.io/badge/paypal-donate-blue.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=M4RKULAVKV7K8)
-
+[![PayPal](https://img.shields.io/badge/paypal-donate-blue.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=M4RKULAVKV7K8)
+[![Twitch](https://img.shields.io/badge/twitch-timXD-6441a5.svg)](http://twitch.tv/timXD)
 
 
 `TORoundedTableView` is a subclass of the standard UIKit `UITableView` class. Harkening back to the days of iOS 6, it overrides the standard grouped `UITableView` appearence and behaviour to match the borderless, rounded corner style seen in the Settings app on every iPad since iOS 7.
 
 As iOS device screens increased (Like iPhone 6 Plus and the original iPad Pro), there are a lot of UI design cases where the 'edge-to-edge' style of the stock grouped `UITableView` doesn't make sense, and will end up looking rather distorted in ultra-wide regions.
 
-Hopefully Apple will realise this and will make the official version of this rounded table view style available in an upcoming version of iOS ([File all the radars!](https://bugreport.apple.com)).
+Hopefully Apple will realise this and will make the official version of this rounded table view style available in an upcoming version of iOS ([Please file all the radars.](https://bugreport.apple.com)).
 
 # Features
 
@@ -26,7 +27,7 @@ Hopefully Apple will realise this and will make the official version of this rou
 * Reverts back to the standard table view style in compact trait collections (Just like in Settings.app)
 * Corner radius graphics are procedurally generated and can be customized on the fly.
 
-# Code
+# Sample Code
 
 `TORoundedTableView` can easily be integrated into `UITableViewController` all you need to do is replace the `UITableView` object stored in the controller's `tableView` property befor it is shown on-screen.
 
@@ -97,8 +98,6 @@ To manually install this library in your app, simply [download a copy of this re
 
 ## CocoaPods
 
-[CocoaPods](https://cocoapods.org) is a dependency manager that makes it much easier to integrate and subsequently update third party libraries in your app's codebase.
-
 To integrate `TORoundedTableView`, simply add the following to your podfile:
 
 ```
@@ -107,7 +106,11 @@ pod 'TORoundedTableView'
 
 ## Carthage
 
-Carthage support isn't offered at this time. Please feel free to file a PR. :)
+To integrate `TORoundedTableView`, simply add the following to your Cartfile:
+
+```
+github "TimOliver/TORoundedTableView"
+```
 
 # Classes
 
