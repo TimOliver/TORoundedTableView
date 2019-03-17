@@ -139,5 +139,5 @@ lane :commit_file do |options|
     }
   )
 
-  return result
+  result
 end
