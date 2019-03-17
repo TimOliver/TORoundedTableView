@@ -24,6 +24,7 @@
 		22553E37223E1D6C004FD25E /* TORoundedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F11D88041DEFB9410026DDCC /* TORoundedTableViewCell.m */; };
 		22553E38223E1D6C004FD25E /* TORoundedTableViewCapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 226D38AC1DF29F0A0060598B /* TORoundedTableViewCapCell.m */; };
 		22553E39223E1D6C004FD25E /* TORoundedTableViewCellBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = F1BC39251DF26D0900C4DCCC /* TORoundedTableViewCellBackground.m */; };
+		22553E3C223E2941004FD25E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22553E3B223E2941004FD25E /* Info.plist */; };
 		22576FBD1DEE997E0001586A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 22576FBC1DEE997E0001586A /* main.m */; };
 		22576FC01DEE997E0001586A /* TOAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22576FBF1DEE997E0001586A /* TOAppDelegate.m */; };
 		22576FC31DEE997E0001586A /* TODetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22576FC21DEE997E0001586A /* TODetailTableViewController.m */; };
@@ -45,10 +46,10 @@
 
 /* Begin PBXFileReference section */
 		22553E0C223E1A23004FD25E /* TORoundedTableView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TORoundedTableView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		22553E0F223E1A23004FD25E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		22553E1C223E1AD3004FD25E /* TORoundedTableViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TORoundedTableViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		22553E1E223E1AD3004FD25E /* TORoundedTableViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TORoundedTableViewTests.m; sourceTree = "<group>"; };
 		22553E20223E1AD3004FD25E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		22553E3B223E2941004FD25E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		22576FB81DEE997E0001586A /* TORoundedTableViewExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TORoundedTableViewExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22576FBC1DEE997E0001586A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		22576FBE1DEE997E0001586A /* TOAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TOAppDelegate.h; sourceTree = "<group>"; };
@@ -96,14 +97,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		22553E0D223E1A23004FD25E /* TORoundedTableView */ = {
-			isa = PBXGroup;
-			children = (
-				22553E0F223E1A23004FD25E /* Info.plist */,
-			);
-			path = TORoundedTableView;
-			sourceTree = "<group>";
-		};
 		22553E1D223E1AD3004FD25E /* TORoundedTableViewTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -113,12 +106,20 @@
 			path = TORoundedTableViewTests;
 			sourceTree = "<group>";
 		};
+		22553E3A223E2941004FD25E /* TORoundedTableViewFramework */ = {
+			isa = PBXGroup;
+			children = (
+				22553E3B223E2941004FD25E /* Info.plist */,
+			);
+			path = TORoundedTableViewFramework;
+			sourceTree = "<group>";
+		};
 		22576FAF1DEE997E0001586A = {
 			isa = PBXGroup;
 			children = (
 				22576FD21DEE9A120001586A /* TORoundedTableView */,
 				22576FBA1DEE997E0001586A /* TORoundedTableViewExample */,
-				22553E0D223E1A23004FD25E /* TORoundedTableView */,
+				22553E3A223E2941004FD25E /* TORoundedTableViewFramework */,
 				22553E1D223E1AD3004FD25E /* TORoundedTableViewTests */,
 				22576FB91DEE997E0001586A /* Products */,
 			);
@@ -298,6 +299,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22553E3C223E2941004FD25E /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,7 +407,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = TORoundedTableView/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/TORoundedTableViewFramework/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -437,7 +439,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = TORoundedTableView/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/TORoundedTableViewFramework/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
