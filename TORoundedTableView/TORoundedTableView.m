@@ -136,7 +136,7 @@ static inline void TORoundedTableViewResizeAccessoryView(UITableViewHeaderFooter
     // On iOS 9 and up, table views will automatically drastically indent the cell
     // content so it won't look too strange on big screens such as iPad Pro. Since we're
     // manually controlling the content insets, we don't need this.
-    if ([self respondsToSelector:NSSelectorFromString(@"setCellLayoutMarginsFollowReadableWidth:")]) {
+    if (@available(iOS 9.0, *)) {
         self.cellLayoutMarginsFollowReadableWidth = NO;
     }
 }
