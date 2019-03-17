@@ -22,8 +22,6 @@
 
 #import <UIKit/UIKit.h>
 
-@class TORoundedTableViewCell;
-
 @interface TORoundedTableView : UITableView
 
 /** The distance from the edges of each side of the table view (Default is 22 points) */
@@ -45,3 +43,9 @@
 @property (nonatomic, strong) UIColor *cellSelectedBackgroundColor;
 
 @end
+
+//! Project version number for TORoundedTableView.
+FOUNDATION_EXPORT double TORoundedTableViewVersionNumber;
+
+//! Project version string for TORoundedTableView.
+FOUNDATION_EXPORT const unsigned char TORoundedTableViewVersionString[];
