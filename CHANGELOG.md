@@ -5,7 +5,7 @@ x.y.z Release Notes (yyyy-MM-dd)
 * None.
 
 ### Fixed
-* Changed corner image loading to happen immediately in order to solve potential layout bugs. (#3)
+* Changed corner image loading to happen immediately in order to solve potential layout bugs. ([#3](https://github.com/TimOliver/TORoundedTableView/issues/3))
 
 ### Compatibility
 * None.
