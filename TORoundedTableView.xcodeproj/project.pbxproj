@@ -16,6 +16,14 @@
 		22553E2F223E1B72004FD25E /* TORoundedTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = F11D88031DEFB9410026DDCC /* TORoundedTableViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22553E30223E1B72004FD25E /* TORoundedTableViewCapCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 226D38AB1DF29F0A0060598B /* TORoundedTableViewCapCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22553E31223E1B72004FD25E /* TORoundedTableViewCellBackground.h in Headers */ = {isa = PBXBuildFile; fileRef = F1BC39241DF26D0900C4DCCC /* TORoundedTableViewCellBackground.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22553E32223E1D6B004FD25E /* TORoundedTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22576FD41DEE9D2D0001586A /* TORoundedTableView.m */; };
+		22553E33223E1D6B004FD25E /* TORoundedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F11D88041DEFB9410026DDCC /* TORoundedTableViewCell.m */; };
+		22553E34223E1D6B004FD25E /* TORoundedTableViewCapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 226D38AC1DF29F0A0060598B /* TORoundedTableViewCapCell.m */; };
+		22553E35223E1D6B004FD25E /* TORoundedTableViewCellBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = F1BC39251DF26D0900C4DCCC /* TORoundedTableViewCellBackground.m */; };
+		22553E36223E1D6C004FD25E /* TORoundedTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22576FD41DEE9D2D0001586A /* TORoundedTableView.m */; };
+		22553E37223E1D6C004FD25E /* TORoundedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F11D88041DEFB9410026DDCC /* TORoundedTableViewCell.m */; };
+		22553E38223E1D6C004FD25E /* TORoundedTableViewCapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 226D38AC1DF29F0A0060598B /* TORoundedTableViewCapCell.m */; };
+		22553E39223E1D6C004FD25E /* TORoundedTableViewCellBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = F1BC39251DF26D0900C4DCCC /* TORoundedTableViewCellBackground.m */; };
 		22576FBD1DEE997E0001586A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 22576FBC1DEE997E0001586A /* main.m */; };
 		22576FC01DEE997E0001586A /* TOAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22576FBF1DEE997E0001586A /* TOAppDelegate.m */; };
 		22576FC31DEE997E0001586A /* TODetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22576FC21DEE997E0001586A /* TODetailTableViewController.m */; };
@@ -328,6 +336,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22553E37223E1D6C004FD25E /* TORoundedTableViewCell.m in Sources */,
+				22553E38223E1D6C004FD25E /* TORoundedTableViewCapCell.m in Sources */,
+				22553E36223E1D6C004FD25E /* TORoundedTableView.m in Sources */,
+				22553E39223E1D6C004FD25E /* TORoundedTableViewCellBackground.m in Sources */,
 				22553E1F223E1AD3004FD25E /* TORoundedTableViewTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -336,9 +348,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22553E33223E1D6B004FD25E /* TORoundedTableViewCell.m in Sources */,
 				22576FC31DEE997E0001586A /* TODetailTableViewController.m in Sources */,
+				22553E32223E1D6B004FD25E /* TORoundedTableView.m in Sources */,
 				22576FC01DEE997E0001586A /* TOAppDelegate.m in Sources */,
+				22553E35223E1D6B004FD25E /* TORoundedTableViewCellBackground.m in Sources */,
 				F1BC39201DF25DDF00C4DCCC /* TOMasterTableViewController.m in Sources */,
+				22553E34223E1D6B004FD25E /* TORoundedTableViewCapCell.m in Sources */,
 				22576FBD1DEE997E0001586A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

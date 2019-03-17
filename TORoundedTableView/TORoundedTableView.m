@@ -40,9 +40,18 @@
 static inline void TORoundedTableViewResizeView(UIView *view, TORoundedTableView *tableView, CGFloat columnWidth, BOOL centered)
 {
     CGRect frame = view.frame;
+
+    // Cap the width to the available columnc width, and center if need be
     if (frame.size.width < columnWidth + FLT_EPSILON) { return; }
     frame.size.width = columnWidth;
     if (centered) { frame.origin.x = (tableView.frame.size.width - columnWidth) * 0.5f; }
+
+    // Adjust horizontal insets for devices with additional safe area requirements (eg, iPhone XS Max)
+    UIEdgeInsets safeAreaInsets = UIEdgeInsetsZero;
+    if (@available(iOS 11.0, *)) { safeAreaInsets = tableView.safeAreaInsets; }
+    if (safeAreaInsets.right > 0.0) { frame.size.width -= safeAreaInsets.right; }
+    if (safeAreaInsets.left > 0.0) { frame.origin.x += safeAreaInsets.left; frame.size.width -= safeAreaInsets.left; }
+
     view.frame = frame;
 }
 

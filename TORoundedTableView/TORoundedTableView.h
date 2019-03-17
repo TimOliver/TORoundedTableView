@@ -22,12 +22,15 @@
 
 #import <UIKit/UIKit.h>
 
+#import "TORoundedTableViewCell.h"
+#import "TORoundedTableViewCapCell.h"
+
 @interface TORoundedTableView : UITableView
 
 /** The distance from the edges of each side of the table view (Default is 22 points) */
 @property (nonatomic, assign) CGFloat horizontalInset;
 
-/** From the edge of the table view cells, the horizontal inset of the accessory views. (Defaults to `separatorInset.left`) */
+/** From the edge of the table view cells, the horizontal inset of the accessory views. (Default is an un-used value.) */
 @property (nonatomic, assign) CGFloat accessoryHorizontalInset;
 
 /** The maximum width that the table content may be scale to (Default is 675) */

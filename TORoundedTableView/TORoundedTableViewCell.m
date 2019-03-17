@@ -32,7 +32,7 @@ static Class _tableViewClass = NULL;
     if (!_tableViewClass) { _tableViewClass = [TORoundedTableView class]; }
     BOOL horizontalRegular = self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassCompact;
 
-    /** On iOS 10 and down, table cells are kept in `UItableViewWrapperView`,
+    /** On iOS 10 and down, table cells are kept in `UITableViewWrapperView`,
      which abstracts away our control of the frame from `TORoundedTableView`.
      As such, it's necessary to override `setFrame` and force the cell width to match
      that container view.
