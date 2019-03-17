@@ -1,8 +1,8 @@
 x.y.z Release Notes (yyyy-MM-dd)
 =============================================================
 
-### Enhancements
-* None.
+0.1.5 Release Notes (2019-03-18)
+=============================================================
 
 ### Fixed
 * Changed corner image loading to happen immediately in order to solve potential layout bugs. ([#3](https://github.com/TimOliver/TORoundedTableView/issues/3))
