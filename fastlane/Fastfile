@@ -22,12 +22,6 @@ lane :release do
     next
   end
 
-  # Check if the tag exists
-  if git_tag_exists(tag: latest_version)
-    UI.user_error! "--- ERROR: Tag already exists. Please provide a new one. ---"
-    next
-  end
-
   UI.success "--- Found latest tag version: #{latest_version} ---"
 
   UI.message "Extracting Release Notes from CHANGELOG"
@@ -49,16 +43,6 @@ lane :release do
     commit_file(repo_name: ENV["REPO_PATH"], file_path: ENV["PODSPEC_PATH"], commit_message: "Bumped Podspec Version to v#{latest_version}")
     commit_sha = commit[:json]["commit"]["sha"]
   end
-
-  # Publish to CocoaPods trunk (This will fall-through if this release has previously been pushed)
-  begin 
-    pod_push(use_bundle_exec: true, allow_warnings: true)
-  rescue => ex
-    UI.error(ex)
-  end
-
-  # Get the current commit sha
-  commit_sha = last_git_commit[:commit_hash]
 
   # Update and push framework version number if the current version doesn't match
   framework_version = get_info_plist_value(path: ENV["FRAMEWORK_PLIST_PATH"], key: "CFBundleShortVersionString")
@@ -85,6 +69,16 @@ lane :release do
       end
     }
   )
+
+  # Publish to CocoaPods trunk (This will fall-through if this release has previously been pushed)
+  begin 
+    pod_push(use_bundle_exec: true, allow_warnings: true)
+  rescue => ex
+    UI.error(ex)
+  end
+
+  # Get the current commit sha
+  commit_sha = last_git_commit[:commit_hash]
 
   UI.message "Uploading to GitHub Releases"
 
