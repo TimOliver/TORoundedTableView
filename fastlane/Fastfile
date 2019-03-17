@@ -11,19 +11,20 @@ lane :release do
   UI.message "Fetching latest tag"
 
   # Fetch the latest tag that would have just been added
-  sh('git fetch --tags')
-  last_tag = last_git_tag
-  if !last_tag
-    UI.user_error! "--- ERROR: Was unable to locate any git tags. ---"
+
+  # We get the desired tag number from the Buildkite release message
+  release_message = ENV["BUILDKITE_MESSAGE"]
+
+  # See if we can extract the new version from the message
+  latest_version = release_message.scan(/[vV]?(\d{1,3}\.\d{1,3}\.\d{1,3})/).last.first
+  if !latest_version 
+    UI.user_error! "--- ERROR: Was unable to find version number in build message. ---"
     next
   end
 
-  UI.success "Latest tag found is #{last_tag}"
-
-  # Verify the tag conforms to semantic versioning
-  latest_version = last_tag.scan(/[vV]?(\d{1,3}\.\d{1,3}\.\d{1,3})/).last.first
-  if !latest_version
-    UI.success "--- Latest tag doesn't appear to be a new version. Ignoring. ---"
+  # Check if the tag exists
+  if git_tag_exists(tag: latest_version)
+    UI.user_error! "--- ERROR: Tag already exists. Please provide a new one. ---"
     next
   end
 
@@ -40,21 +41,13 @@ lane :release do
     next
   end
 
-  UI.message "Uploading to GitHub Releases"
-
-  # Publish the Release on GitHub
-  set_github_release(repository_name: ENV["REPO_PATH"], 
-                      api_token: ENV["GITHUB_TOKEN"],
-                      name: "v#{latest_version}",
-                      tag_name: latest_version,
-                      description: release_notes.first)
-
   # Update the Podspec version and push to the repo
   podspec_version = version_get_podspec(path: ENV["PODSPEC_PATH"])
   if podspec_version != latest_version
     UI.message "Updating Podspec version"
     version_bump_podspec(path: ENV["PODSPEC_PATH"], version_number: latest_version)
     commit_file(repo_name: ENV["REPO_PATH"], file_path: ENV["PODSPEC_PATH"], commit_message: "Bumped Podspec Version to v#{latest_version}")
+    commit_sha = commit[:json]["commit"]["sha"]
   end
 
   # Publish to CocoaPods trunk (This will fall-through if this release has previously been pushed)
@@ -64,13 +57,44 @@ lane :release do
     UI.error(ex)
   end
 
+  # Get the current commit sha
+  commit_sha = last_git_commit[:commit_hash]
+
   # Update and push framework version number if the current version doesn't match
   framework_version = get_info_plist_value(path: ENV["FRAMEWORK_PLIST_PATH"], key: "CFBundleShortVersionString")
   if framework_version != latest_version
     UI.message "Updating framework version"
     set_info_plist_value(path: ENV["FRAMEWORK_PLIST_PATH"], key: "CFBundleShortVersionString", value: latest_version)
-    commit_file(repo_name: ENV["REPO_PATH"], file_path: ENV["FRAMEWORK_PLIST_PATH"], commit_message: "Bumped Framework Version to v#{latest_version}")
+    commit = commit_file(repo_name: ENV["REPO_PATH"], file_path: ENV["FRAMEWORK_PLIST_PATH"], commit_message: "Bumped Framework Version to v#{latest_version}")
+    commit_sha = commit[:json]["commit"]["sha"]
   end
+
+  # Now that all of the new tag versions have been pushed, tag the latest commit
+  tag_message = "Release v#{latest_version}"
+  tagger = {"name": "XD-CI", email: ENV["AUTHOR_EMAIL"]}
+
+  Fastlane::Actions::GithubApiAction.run(
+    server_url: "https://api.github.com",
+    api_token: ENV["GITHUB_TOKEN"],
+    http_method: "PUT",
+    path: "/repos/#{repo_name}/contents/git/tags",
+    body: {"message": tag_message, "tag": latest_version, "object": commit_sha, "type": "commit", "tagger": tagger},
+    error_handlers: {
+      '*' => proc do |result|
+        UI.error("GitHub responded with #{result[:status]}:#{result[:body]}")
+      end
+    }
+  )
+
+  UI.message "Uploading to GitHub Releases"
+
+  # Publish the Release on GitHub
+  set_github_release(repository_name: ENV["REPO_PATH"], 
+                      api_token: ENV["GITHUB_TOKEN"],
+                      name: "v#{latest_version}",
+                      tag_name: latest_version,
+                      description: release_notes.first)
+
 end
 
 desc "Using the GitHub Web API, commit the local contents of a file to master via a bot account"
@@ -114,4 +138,6 @@ lane :commit_file do |options|
       end
     }
   )
+
+  return result
 end
