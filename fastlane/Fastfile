@@ -149,7 +149,7 @@ lane :push_new_tag do |options|
     server_url: "https://api.github.com",
     api_token: ENV["GITHUB_TOKEN"],
     http_method: "POST",
-    path: "/repos/#{ENV["REPO_PATH"]}/contents/git/tags",
+    path: "/repos/#{ENV["REPO_PATH"]}/git/tags",
     body: {"message": tag_message, "tag": tag, "object": commit_sha, "type": "commit", "tagger": tagger},
     error_handlers: {
       '*' => proc do |result|
