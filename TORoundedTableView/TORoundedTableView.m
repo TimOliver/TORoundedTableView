@@ -141,7 +141,11 @@ static inline void TORoundedTableViewResizeAccessoryView(UITableViewHeaderFooter
     _cellBackgroundColor = [UIColor whiteColor];
     _cellSelectedBackgroundColor = TOROUNDEDTABLEVIEW_SELECTED_BACKGROUND_COLOR;
     _accessoryHorizontalInset = MAXFLOAT;
-    
+
+    // Load the corner images immediately in case we need layout data before even
+    // being added to the view hierarchy
+    [self loadCornerImages];
+
     // On iOS 9 and up, table views will automatically drastically indent the cell
     // content so it won't look too strange on big screens such as iPad Pro. Since we're
     // manually controlling the content insets, we don't need this.
@@ -170,8 +174,7 @@ static inline void TORoundedTableViewResizeAccessoryView(UITableViewHeaderFooter
     if (self.superview == nil) {
         return;
     }
-    
-    [self loadCornerImages];
+
     [self layoutSubviews];
 }
 
@@ -261,7 +264,7 @@ static inline void TORoundedTableViewResizeAccessoryView(UITableViewHeaderFooter
     
     self.roundedCornerImage = nil;
     [self loadCornerImages];
-    [self reloadData];
+    [self reloadRowsAtIndexPaths:self.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationNone];
 }
 
 - (void)setCellSelectedBackgroundColor:(UIColor *)cellSelectedBackgroundColor
@@ -274,7 +277,7 @@ static inline void TORoundedTableViewResizeAccessoryView(UITableViewHeaderFooter
     
     self.selectedRoundedCornerImage = nil;
     [self loadCornerImages];
-    [self reloadData];
+    [self reloadRowsAtIndexPaths:self.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationNone];
 }
 
 #pragma mark - Image Generation -

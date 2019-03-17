@@ -5,7 +5,7 @@ x.y.z Release Notes (yyyy-MM-dd)
 * None.
 
 ### Fixed
-* None.
+* Changed corner image loading to happen immediately in order to solve potential layout bugs. (#3)
 
 ### Compatibility
 * None.
