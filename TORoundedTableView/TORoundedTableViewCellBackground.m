@@ -99,7 +99,7 @@ typedef NS_ENUM(NSInteger, TORoundedTableViewCellBackgroundCorner) {
     [super layoutSubviews];
 
     // Check if we're enabled or not by seeing if we are stretching edge-to-edge
-    BOOL hideRoundedCorners = (self.frame.size.width >= self.superview.frame.size.width - FLT_EPSILON);
+    BOOL hideRoundedCorners = (self.superview.frame.origin.x <= FLT_EPSILON);
 
     CABasicAnimation *resizeAnimation = (CABasicAnimation *)[self.layer animationForKey:@"bounds.size"];
     if (resizeAnimation == nil) {

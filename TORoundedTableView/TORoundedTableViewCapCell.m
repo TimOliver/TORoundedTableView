@@ -117,7 +117,7 @@
     }
 
     // Check if we're enabled or not by seeing if we are stretching edge-to-edge
-    if (self.frame.size.width >= self.superview.frame.size.width - FLT_EPSILON) {
+    if (self.frame.origin.x <= FLT_EPSILON) {
         return;
     }
 
