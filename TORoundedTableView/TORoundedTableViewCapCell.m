@@ -117,7 +117,12 @@
     }
 
     // Check if we're enabled or not by seeing if we are stretching edge-to-edge
-    if (self.frame.origin.x <= FLT_EPSILON) {
+    // Account for the invisible container view on iOS 10 and below
+    UIView *containerView = self;
+    if (@available(iOS 11.0, *)) { }
+    else { containerView = self.superview; }
+
+    if (containerView.frame.origin.x <= FLT_EPSILON) {
         return;
     }
 

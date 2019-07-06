@@ -98,8 +98,13 @@ typedef NS_ENUM(NSInteger, TORoundedTableViewCellBackgroundCorner) {
 {
     [super layoutSubviews];
 
+    // On iOS 10 and below, there is an additional container view we need to hook
+    UIView *containerView = self.superview;
+    if (@available(iOS 11.0, *)) { }
+    else { containerView = self.superview.superview; }
+
     // Check if we're enabled or not by seeing if we are stretching edge-to-edge
-    BOOL hideRoundedCorners = (self.superview.frame.origin.x <= FLT_EPSILON);
+    BOOL hideRoundedCorners = (containerView.frame.origin.x <= FLT_EPSILON);
 
     CABasicAnimation *resizeAnimation = (CABasicAnimation *)[self.layer animationForKey:@"bounds.size"];
     if (resizeAnimation == nil) {
