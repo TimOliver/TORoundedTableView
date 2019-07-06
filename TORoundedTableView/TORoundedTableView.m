@@ -135,8 +135,9 @@ static inline void TORoundedTableViewResizeAccessoryView(UITableViewHeaderFooter
 
 - (void)setUp
 {
-    _sectionCornerRadius = 5.0f;
-    _horizontalInset = 22.0f;
+    _showRoundedCorners = YES;
+    _sectionCornerRadius = 7.0f;
+    _horizontalInset = 18.0f;
     _maximumWidth = 675.0f;
     _cellBackgroundColor = [UIColor whiteColor];
     _cellSelectedBackgroundColor = TOROUNDEDTABLEVIEW_SELECTED_BACKGROUND_COLOR;
@@ -198,7 +199,8 @@ static inline void TORoundedTableViewResizeAccessoryView(UITableViewHeaderFooter
 {
     [super layoutSubviews];
 
-    if (self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassRegular) {
+    // Skip if we've disabled showing the rounded corners
+    if (!self.showRoundedCorners) {
         return;
     }
 
@@ -230,7 +232,7 @@ static inline void TORoundedTableViewResizeAccessoryView(UITableViewHeaderFooter
     // Annoying hack. While other views automatically resize/reposition when adjusting between size classes,
     // the table footer view doesn't move back to its origin of 0.0
     // This forcibly resets the position of the footer view
-    if (self.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact && self.tableFooterView) {
+    if (!self.showRoundedCorners && self.tableFooterView) {
         CGRect frame = self.tableFooterView.frame;
         frame.origin.x = 0.0f;
         self.tableFooterView.frame = frame;

@@ -27,6 +27,9 @@
 
 @interface TORoundedTableView : UITableView
 
+/** Shows the rounded corners. Setting to NO will show the original edge-to-edge visual style. (Default is YES) */
+@property (nonatomic, assign) BOOL showRoundedCorners;
+
 /** The distance from the edges of each side of the table view (Default is 22 points) */
 @property (nonatomic, assign) CGFloat horizontalInset;
 
