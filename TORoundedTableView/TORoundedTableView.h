@@ -43,10 +43,10 @@
 @property (nonatomic, assign) CGFloat sectionCornerRadius;
 
 /** The default background color of every cell (Default color is white) */
-@property (nonatomic, strong) UIColor *cellBackgroundColor;
+@property (nonatomic, strong, null_resettable) UIColor *cellBackgroundColor;
 
 /** The default background color of each cell when tapped (Default color is light grey) */
-@property (nonatomic, strong) UIColor *cellSelectedBackgroundColor;
+@property (nonatomic, strong, null_resettable) UIColor *cellSelectedBackgroundColor;
 
 @end
 

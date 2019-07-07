@@ -22,8 +22,10 @@
 
 #import "TORoundedTableView.h"
 #import "TORoundedTableViewCell.h"
+#import "TORoundedTableViewCapCell.h"
 
-#define TOROUNDEDTABLEVIEW_SELECTED_BACKGROUND_COLOR [UIColor colorWithWhite:0.85f alpha:1.0f]
+#define TOROUNDEDTABLEVIEW_SELECTED_BACKGROUND_COLOR_LIGHT [UIColor colorWithWhite:0.85f alpha:1.0f]
+#define TOROUNDEDTABLEVIEW_SELECTED_BACKGROUND_COLOR_DARK  [UIColor colorWithRed:0.227f green:0.227f blue:0.235f alpha:1.0f]
 
 // -------------------------------------------------------
 
@@ -74,6 +76,14 @@ static inline void TORoundedTableViewResizeAccessoryView(UITableViewHeaderFooter
     frame.origin.x = horizontalInset;
     view.detailTextLabel.frame = frame;
 }
+
+// -------------------------------------------------------
+
+@interface TORoundedTableViewCapCell (Private)
+
+- (void)refreshBackgroundContent;
+
+@end
 
 // -------------------------------------------------------
 
@@ -139,9 +149,10 @@ static inline void TORoundedTableViewResizeAccessoryView(UITableViewHeaderFooter
     _sectionCornerRadius = 7.0f;
     _horizontalInset = 18.0f;
     _maximumWidth = 675.0f;
-    _cellBackgroundColor = [UIColor whiteColor];
-    _cellSelectedBackgroundColor = TOROUNDEDTABLEVIEW_SELECTED_BACKGROUND_COLOR;
     _accessoryHorizontalInset = MAXFLOAT;
+
+    // Set the default color values of the cell backgrounds
+    [self setDefaultCellBackgroundColors];
 
     // Load the corner images immediately in case we need layout data before even
     // being added to the view hierarchy
@@ -152,6 +163,37 @@ static inline void TORoundedTableViewResizeAccessoryView(UITableViewHeaderFooter
     // manually controlling the content insets, we don't need this.
     if (@available(iOS 9.0, *)) {
         self.cellLayoutMarginsFollowReadableWidth = NO;
+    }
+}
+
+- (void)setDefaultCellBackgroundColors
+{
+    // If nil, reset the default color of a non selected cell
+    if (_cellBackgroundColor == nil) {
+        _cellBackgroundColor = [UIColor whiteColor];
+
+        // Set the dynamic color in iOS 13
+        if (@available(iOS 13.0, *)) {
+            #ifdef __IPHONE_13_0
+            _cellBackgroundColor = [UIColor secondarySystemGroupedBackgroundColor];
+            #endif
+        }
+    }
+
+    // If nil, reset the selected cell color
+    if (_cellSelectedBackgroundColor == nil) {
+        _cellSelectedBackgroundColor = TOROUNDEDTABLEVIEW_SELECTED_BACKGROUND_COLOR_LIGHT;
+
+        // Because the real cell selection color isn't public, we'll need to "simulate" the
+        // native colors by providing our own
+        if (@available(iOS 13.0, *)) {
+            #ifdef __IPHONE_13_0
+            _cellSelectedBackgroundColor = [UIColor colorWithDynamicProvider:^UIColor *(UITraitCollection *traitCollection) {
+                BOOL isDarkMode = traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark;
+                return isDarkMode ? TOROUNDEDTABLEVIEW_SELECTED_BACKGROUND_COLOR_DARK : TOROUNDEDTABLEVIEW_SELECTED_BACKGROUND_COLOR_LIGHT;
+            }];
+            #endif
+        }
     }
 }
 
@@ -168,15 +210,6 @@ static inline void TORoundedTableViewResizeAccessoryView(UITableViewHeaderFooter
         self.selectedRoundedCornerImage = [[self class] roundedCornerImageWithRadius:self.sectionCornerRadius
                                                                                color:self.cellSelectedBackgroundColor];
     }
-}
-
-- (void)didMoveToSuperview
-{
-    if (self.superview == nil) {
-        return;
-    }
-
-    [self layoutSubviews];
 }
 
 #pragma mark - Content Resizing / Layout -
@@ -237,6 +270,28 @@ static inline void TORoundedTableViewResizeAccessoryView(UITableViewHeaderFooter
         frame.origin.x = 0.0f;
         self.tableFooterView.frame = frame;
     }
+
+    // On iOS 13, if a system wide appearence change happens, flush all the images and reload the lot
+#ifdef __IPHONE_13_0
+    if (@available(iOS 13.0, *)) {
+        if ([self.traitCollection hasDifferentColorAppearanceComparedToTraitCollection:previousTraitCollection]) {
+            [self reloadColorAppearenceInContentViews];
+        }
+    }
+#endif
+}
+
+- (void)reloadColorAppearenceInContentViews
+{
+    // Purge the current corner images
+    self.roundedCornerImage = nil;
+    self.selectedRoundedCornerImage = nil;
+
+    // Reload new ones off the new color settings
+    [self loadCornerImages];
+
+    // Reload the table
+    [self reloadData];
 }
 
 #pragma mark - Accessor Overrides -
@@ -261,11 +316,16 @@ static inline void TORoundedTableViewResizeAccessoryView(UITableViewHeaderFooter
     if (cellBackgroundColor == _cellBackgroundColor) {
         return;
     }
-    
+
+    // Set the new color, and reset back to default it it was nil
     _cellBackgroundColor = cellBackgroundColor;
-    
+    if (_cellBackgroundColor == nil) { [self setDefaultCellBackgroundColors]; }
+
+    // Delete the current rounded image we have now and regenerate
     self.roundedCornerImage = nil;
     [self loadCornerImages];
+
+    // Reload the visible cells so the change is immediately visible
     [self reloadRowsAtIndexPaths:self.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationNone];
 }
 
@@ -274,11 +334,16 @@ static inline void TORoundedTableViewResizeAccessoryView(UITableViewHeaderFooter
     if (_cellSelectedBackgroundColor == cellSelectedBackgroundColor) {
         return;
     }
-    
+
+    // Update the selected cell color and revert if it was nil
     _cellSelectedBackgroundColor = cellSelectedBackgroundColor;
-    
+    if (_cellSelectedBackgroundColor == nil) { [self setDefaultCellBackgroundColors]; }
+
+    // Delete the original rounded corner image and regenerate
     self.selectedRoundedCornerImage = nil;
     [self loadCornerImages];
+
+    // Update the visible cells to reflect the new change
     [self reloadRowsAtIndexPaths:self.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationNone];
 }
 
@@ -286,10 +351,7 @@ static inline void TORoundedTableViewResizeAccessoryView(UITableViewHeaderFooter
 + (UIImage *)roundedCornerImageWithRadius:(CGFloat)radius color:(UIColor *)color
 {
     UIImage *image = nil;
-    
-    // Make sure we have a valid color
-    if (color == nil) { color = [UIColor whiteColor]; }
-    
+
     // Rectangle if only one side is rounded, square otherwise
     CGRect rect = CGRectMake(0, 0, radius * 2, radius * 2);
     
