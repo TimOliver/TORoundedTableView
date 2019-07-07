@@ -4,6 +4,12 @@ x.y.z Release Notes (yyyy-MM-dd)
 ### Enhancements
 
 * Made the effect always on by default, adding `showRoundedCorners` to turn it off.
+* Added iOS 13 support, including layout improvements and dark mode support.
+
+### Changed
+
+* Corner radius is now 7 by default to more closely match iOS 13's design.
+* To accomodate smaller screens, the default inset is now 18.
 
 0.1.5 Release Notes (2019-03-18)
 =============================================================

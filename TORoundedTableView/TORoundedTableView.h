@@ -39,14 +39,14 @@
 /** The maximum width that the table content may be scale to (Default is 675) */
 @property (nonatomic, assign) CGFloat maximumWidth;
 
-/** The corner radius of each section (Default value is 7) */
+/** The corner radius of each section (Default value is 7.0f) */
 @property (nonatomic, assign) CGFloat sectionCornerRadius;
 
-/** The default background color of every cell (Default color is white) */
-@property (nonatomic, strong) UIColor *cellBackgroundColor;
+/** The default background color of every cell (Default color is the default table view cell background) */
+@property (nonatomic, strong, null_resettable) UIColor *cellBackgroundColor;
 
-/** The default background color of each cell when tapped (Default color is light grey) */
-@property (nonatomic, strong) UIColor *cellSelectedBackgroundColor;
+/** The default background color of each cell when tapped (Default color is standard selection color) */
+@property (nonatomic, strong, null_resettable) UIColor *cellSelectedBackgroundColor;
 
 @end
 

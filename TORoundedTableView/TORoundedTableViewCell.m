@@ -42,6 +42,13 @@ static Class _tableViewClass = NULL;
         frame.size.width = self.superview.frame.size.width;
     }
 
+    // Not sure why, but on iOS 13, the bound origin is not set to 0
+    // in order to offset the safe area. Force this back to zero if need be.
+    CGRect bounds = self.contentView.bounds;
+    bounds.origin = CGPointZero;
+    self.contentView.bounds = bounds;
+
+    // Apply the frame value back up to the super class
     [super setFrame:frame];
 }
 

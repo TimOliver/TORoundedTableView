@@ -47,6 +47,7 @@
 @property (nonatomic, strong) TORoundedTableViewCellBackground *selectedBackgroundView;
 
 - (void)setUp;
+- (void)refreshBackgroundContent;
 
 @end
 
@@ -90,12 +91,24 @@
             break;
         }
     } while ((superview = superview.superview));
-    
-    self.backgroundView.roundedCornerImage = self.tableView.roundedCornerImage;
-    self.backgroundView.backgroundColor = self.tableView.cellBackgroundColor;
-    
-    self.selectedBackgroundView.roundedCornerImage = self.tableView.selectedRoundedCornerImage;
-    self.selectedBackgroundView.backgroundColor = self.tableView.cellSelectedBackgroundColor;
+
+    // Update the background views with the new colors
+    [self refreshBackgroundContent];
+}
+
+- (void)refreshBackgroundContent
+{
+    // If the background view corner images have been updated, the background color will have changed
+    // too. (But since it is copied, we can't do a memory compare)
+    if (self.backgroundView.roundedCornerImage != self.tableView.roundedCornerImage) {
+        self.backgroundView.roundedCornerImage = self.tableView.roundedCornerImage;
+        self.backgroundView.backgroundColor = self.tableView.cellBackgroundColor;
+    }
+
+    if (self.selectedBackgroundView.roundedCornerImage != self.tableView.selectedRoundedCornerImage) {
+        self.selectedBackgroundView.roundedCornerImage = self.tableView.selectedRoundedCornerImage;
+        self.selectedBackgroundView.backgroundColor = self.tableView.cellSelectedBackgroundColor;
+    }
 }
 
 #pragma mark - Layout -
@@ -103,7 +116,10 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
+
+    // Reload the background content if needed
+    [self refreshBackgroundContent];
+
     self.backgroundView.frame = self.bounds;
     
     // Because the background view is slightly smaller than the cell size by default,

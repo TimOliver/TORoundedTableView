@@ -34,7 +34,10 @@
     XCTAssertEqual(tableView.accessoryHorizontalInset, MAXFLOAT);
     XCTAssertEqual(tableView.maximumWidth, 675.0f);
     XCTAssertEqual(tableView.sectionCornerRadius, 7.0f);
-    XCTAssertEqual(tableView.cellBackgroundColor, [UIColor whiteColor]);
+    if (@available(iOS 13, *)) { }
+    else {
+        XCTAssertEqual(tableView.cellBackgroundColor, [UIColor whiteColor]);
+    }
 }
 
 @end
