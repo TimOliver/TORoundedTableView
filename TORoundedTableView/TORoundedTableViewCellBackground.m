@@ -71,7 +71,7 @@ typedef NS_ENUM(NSInteger, TORoundedTableViewCellBackgroundCorner) {
         for (NSInteger i = 0; i < TORoundedTableViewCellBackgroundViewNum; i++) {
             CALayer *layer = [[CALayer alloc] init];
             layer.backgroundColor = ([UIColor whiteColor].CGColor);
-            layer.actions = @{@"position": [NSNull null], @"bounds": [NSNull null], @"hidden": [NSNull null]};
+            layer.actions = @{@"position": [NSNull null], @"bounds": [NSNull null], @"hidden": [NSNull null], @"backgroundColor": [NSNull null] };
             [layers addObject:layer];
             [self.layer addSublayer:layer];
         }
@@ -83,7 +83,7 @@ typedef NS_ENUM(NSInteger, TORoundedTableViewCellBackgroundCorner) {
         NSMutableArray *corners = [NSMutableArray arrayWithCapacity:4];
         for (NSInteger i = 0; i < TORoundedTableViewCellBackgroundCornerNum; i++) {
             CALayer *cornerLayer = [[CALayer alloc] init];
-            cornerLayer.actions = @{@"position": [NSNull null], @"bounds": [NSNull null], @"hidden": [NSNull null]};
+            cornerLayer.actions = @{@"position": [NSNull null], @"bounds": [NSNull null], @"hidden": [NSNull null], @"contents": [NSNull null] };
             [corners addObject:cornerLayer];
             [self.layer addSublayer:cornerLayer];
         }
