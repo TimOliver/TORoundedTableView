@@ -53,7 +53,6 @@ static inline void TORoundedTableViewResizeView(UIView *view, TORoundedTableView
     if (@available(iOS 11.0, *)) { safeAreaInsets = tableView.safeAreaInsets; }
     if (safeAreaInsets.right > 0.0) { frame.size.width -= safeAreaInsets.right; }
     if (safeAreaInsets.left > 0.0) { frame.origin.x += safeAreaInsets.left; frame.size.width -= safeAreaInsets.left; }
-
     view.frame = frame;
 }
 
@@ -163,6 +162,12 @@ static inline void TORoundedTableViewResizeAccessoryView(UITableViewHeaderFooter
     // manually controlling the content insets, we don't need this.
     if (@available(iOS 9.0, *)) {
         self.cellLayoutMarginsFollowReadableWidth = NO;
+    }
+
+    // Disable extending the safe area insets to the content views since
+    // we're already handling that layout
+    if (@available(iOS 11.0, *)) {
+        self.insetsLayoutMarginsFromSafeArea = NO;
     }
 }
 
