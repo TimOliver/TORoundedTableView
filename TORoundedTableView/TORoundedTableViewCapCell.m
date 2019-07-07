@@ -115,11 +115,17 @@
         backgroundViewFrame.size.height += 1.0f;
         self.backgroundView.frame = backgroundViewFrame;
     }
-    
-    if (self.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClassRegular) {
+
+    // Check if we're enabled or not by seeing if we are stretching edge-to-edge
+    // Account for the invisible container view on iOS 10 and below
+    UIView *containerView = self;
+    if (@available(iOS 11.0, *)) { }
+    else { containerView = self.superview; }
+
+    if (containerView.frame.origin.x <= FLT_EPSILON) {
         return;
     }
-    
+
     // Hide the exterior separator view
     // Search for any section exterior separator views that were added and hide them
     for (UIView *view in self.subviews) {

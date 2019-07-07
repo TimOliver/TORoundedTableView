@@ -30,10 +30,10 @@
     TORoundedTableView *tableView = [[TORoundedTableView alloc] initWithFrame:CGRectZero];
     XCTAssertNotNil(tableView);
 
-    XCTAssertEqual(tableView.horizontalInset, 22.0f);
+    XCTAssertEqual(tableView.horizontalInset, 18.0f);
     XCTAssertEqual(tableView.accessoryHorizontalInset, MAXFLOAT);
     XCTAssertEqual(tableView.maximumWidth, 675.0f);
-    XCTAssertEqual(tableView.sectionCornerRadius, 5.0f);
+    XCTAssertEqual(tableView.sectionCornerRadius, 7.0f);
     XCTAssertEqual(tableView.cellBackgroundColor, [UIColor whiteColor]);
 }
 

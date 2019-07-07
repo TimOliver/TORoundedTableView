@@ -27,7 +27,10 @@
 
 @interface TORoundedTableView : UITableView
 
-/** The distance from the edges of each side of the table view (Default is 22 points) */
+/** Shows the rounded corners. Setting to NO will show the original edge-to-edge visual style. (Default is YES) */
+@property (nonatomic, assign) BOOL showRoundedCorners;
+
+/** The distance from the edges of each side of the table view (Default is 18 points) */
 @property (nonatomic, assign) CGFloat horizontalInset;
 
 /** From the edge of the table view cells, the horizontal inset of the accessory views. (Default is an un-used value.) */
@@ -36,7 +39,7 @@
 /** The maximum width that the table content may be scale to (Default is 675) */
 @property (nonatomic, assign) CGFloat maximumWidth;
 
-/** The corner radius of each section (Default value is 5) */
+/** The corner radius of each section (Default value is 7) */
 @property (nonatomic, assign) CGFloat sectionCornerRadius;
 
 /** The default background color of every cell (Default color is white) */
