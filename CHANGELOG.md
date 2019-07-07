@@ -6,13 +6,13 @@ x.y.z Release Notes (yyyy-MM-dd)
 
 ### Enhancements
 
-* Made the effect always on by default, adding `showRoundedCorners` to turn it off.
-* Added iOS 13 support, including layout improvements and dark mode support.
+* Made the effect always on by default, adding `showRoundedCorners` to turn it off. ([#7](https://github.com/TimOliver/TORoundedTableView/pull/7))
+* Added iOS 13 support, including layout improvements and dark mode support. ([#8](https://github.com/TimOliver/TORoundedTableView/pull/8))
 
 ### Changed
 
-* Corner radius is now 7 by default to more closely match iOS 13's design.
-* To accomodate smaller screens, the default inset is now 18.
+* Corner radius is now 7 by default to more closely match iOS 13's design. ([#7](https://github.com/TimOliver/TORoundedTableView/pull/7))
+* To accomodate smaller screens, the default inset is now 18. ([#7](https://github.com/TimOliver/TORoundedTableView/pull/7))
 
 0.1.5 Release Notes (2019-03-18)
 =============================================================
