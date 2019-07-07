@@ -1,6 +1,10 @@
 x.y.z Release Notes (yyyy-MM-dd)
 =============================================================
 
+### Enhancements
+
+* Made the effect always on by default, adding `showRoundedCorners` to turn it off.
+
 0.1.5 Release Notes (2019-03-18)
 =============================================================
 
