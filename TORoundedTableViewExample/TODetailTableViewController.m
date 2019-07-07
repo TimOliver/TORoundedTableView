@@ -58,11 +58,13 @@
 
     // Configure the cell's label
     cell.textLabel.text = [NSString stringWithFormat:@"Cell %ld", indexPath.row+1];
-    
-    // Since we know the background is white, set the label's background to also be white for performance optimizations
-    cell.textLabel.backgroundColor = [UIColor whiteColor];
-    cell.textLabel.opaque = YES;
-    
+
+    // iOS 13 changed the behaviour of table views, so keep the labels clear here for ease of configuration
+    if (@available(iOS 13.0, *)) {} else {
+        cell.textLabel.backgroundColor = [UIColor whiteColor];
+        cell.textLabel.opaque = YES;
+    }
+
     // Return the cell
     return cell;
 }
