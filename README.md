@@ -11,12 +11,11 @@
 [![PayPal](https://img.shields.io/badge/paypal-donate-blue.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=M4RKULAVKV7K8)
 [![Twitch](https://img.shields.io/badge/twitch-timXD-6441a5.svg)](http://twitch.tv/timXD)
 
+***As of iOS 13, Apple has released an official version of this table view style called [`UITableViewStyleInsetGrouped`](https://developer.apple.com/documentation/uikit/uitableviewstyle/uitableviewstyleinsetgrouped)! Yay! While I will continue to maintain this library for the time being, unless you need backwards compatibility, or need some sort of extra control, from this point, I highly recommend you adopt the official `UITableView` API instead.***
 
 `TORoundedTableView` is a subclass of the standard UIKit `UITableView` class. Harkening back to the days of iOS 6, it overrides the standard grouped `UITableView` appearence and behaviour to match the borderless, rounded corner style seen in the Settings app on every iPad since iOS 7.
 
 As iOS device screens increased (Like iPhone 6 Plus and the original iPad Pro), there are a lot of UI design cases where the 'edge-to-edge' style of the stock grouped `UITableView` doesn't make sense, and will end up looking rather distorted in ultra-wide regions.
-
-Hopefully Apple will realise this and will make the official version of this rounded table view style available in an upcoming version of iOS ([Please file all the radars.](https://bugreport.apple.com)).
 
 # Features
 
