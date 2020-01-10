@@ -331,7 +331,9 @@ static inline void TORoundedTableViewResizeAccessoryView(UITableViewHeaderFooter
     [self loadCornerImages];
 
     // Reload the visible cells so the change is immediately visible
-    [self reloadRowsAtIndexPaths:self.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationNone];
+    if (self.indexPathsForVisibleRows.count) {
+        [self reloadRowsAtIndexPaths:self.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationNone];
+    }
 }
 
 - (void)setCellSelectedBackgroundColor:(UIColor *)cellSelectedBackgroundColor
@@ -349,7 +351,9 @@ static inline void TORoundedTableViewResizeAccessoryView(UITableViewHeaderFooter
     [self loadCornerImages];
 
     // Update the visible cells to reflect the new change
-    [self reloadRowsAtIndexPaths:self.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationNone];
+    if (self.indexPathsForVisibleRows.count) {
+        [self reloadRowsAtIndexPaths:self.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationNone];
+    }
 }
 
 #pragma mark - Image Generation -
