@@ -1,6 +1,13 @@
 x.y.z Release Notes (yyyy-MM-dd)
 =============================================================
 
+0.2.1 Release Notes (2020-03-20)
+=============================================================
+
+### Fixed
+
+* A crash that would happen whenever a reload attempt occured while there were empty table sections. ([#10](https://github.com/TimOliver/TORoundedTableView/pull/10))
+
 0.2.0 Release Notes (2019-07-07)
 =============================================================
 
