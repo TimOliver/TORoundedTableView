@@ -2,7 +2,7 @@
 
 ![TORoundedTableView](screenshot.jpg)
 
-[![Build Status](https://badge.buildkite.com/0d1fe3756759b3f15809356591f6427503f2cb5310dbd48075.svg)](https://buildkite.com/xd-ci/toroundedtableview-run-ci)
+[![CI](https://github.com/TimOliver/TORoundedTableView/workflows/CI/badge.svg)](https://github.com/TimOliver/TORoundedTableView/actions?query=workflow%3ACI)
 [![Version](https://img.shields.io/cocoapods/v/TORoundedTableView.svg?style=flat)](http://cocoadocs.org/docsets/TORoundedTableView)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/TimOliver/TORoundedTableView/master/LICENSE)
