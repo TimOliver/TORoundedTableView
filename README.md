@@ -11,7 +11,7 @@
 [![PayPal](https://img.shields.io/badge/paypal-donate-blue.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=M4RKULAVKV7K8)
 [![Twitch](https://img.shields.io/badge/twitch-timXD-6441a5.svg)](http://twitch.tv/timXD)
 
-***As of iOS 13, Apple has released an official version of this table view style called [`UITableViewStyleInsetGrouped`](https://developer.apple.com/documentation/uikit/uitableviewstyle/uitableviewstyleinsetgrouped)! Yay! While I will continue to maintain this library for the time being, unless you need backwards compatibility, or need some sort of extra control, from this point, I highly recommend you adopt the official `UITableView` API instead.***
+***As of iOS 13, Apple has released an official version of this table view style called [`UITableViewStyleInsetGrouped`](https://developer.apple.com/documentation/uikit/uitableviewstyle/uitableviewstyleinsetgrouped)! Yay! In order to officially adopt this style, while still providing backwards compatibility to iOS 11, I've created a new library called [`TOInsetGroupedTableView`](https://github.com/TimOliver/TOInsetGroupedTableView). Moving forward, please only use `TORoundedTableView` if you still need to support iOS 10 or lower in your apps. :)***
 
 `TORoundedTableView` is a subclass of the standard UIKit `UITableView` class. Harkening back to the days of iOS 6, it overrides the standard grouped `UITableView` appearence and behaviour to match the borderless, rounded corner style seen in the Settings app on every iPad since iOS 7.
 
