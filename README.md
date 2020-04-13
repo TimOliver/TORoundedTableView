@@ -138,7 +138,7 @@ This view is still very much in its infancy, and a lot of it hasn't been tested 
 
 Since a similar style of `UITableView` has been prevalent in Settings.app on iPad since 2013, I'd always assumed that it was relatively trivial to modify a table view to that style if ever needed.
 
-That assumption was put to the test this week when I needed to create a login view controller for a test app I was building at work. It turns out that assumption was very wrong and overriding `UITableView`'s edge-to-edge design scheme is actually incredibly difficult.
+That assumption was put to the test one week back in 2016 when I needed to create a login view controller for a test app I was building at work. It turns out that assumption was very wrong and overriding `UITableView`'s edge-to-edge design scheme is actually incredibly difficult.
 
 Given the time constraints at work, I came up with a 'compromise' that let me deliver the code on time, but I was left being really curious to see if this sort of table view style could actually be done 'properly'.
 
